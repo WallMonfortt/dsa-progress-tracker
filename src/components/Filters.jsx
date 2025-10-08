@@ -1,4 +1,4 @@
-import { Filter } from "lucide-react";
+import { Filter, Search } from "lucide-react";
 
 const Filters = ({
   categories,
@@ -9,13 +9,32 @@ const Filters = ({
   setFilterDifficulty,
   showOnlyDueToday,
   setShowOnlyDueToday,
+  searchQuery,
+  setSearchQuery,
 }) => (
   <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6 transition-colors">
     <div className="flex items-center gap-2 mb-4">
       <Filter size={20} className="text-gray-600" />
       <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Filters</h2>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-center">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-center">
+      <div className="md:col-span-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
+          Search Problems
+        </label>
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Search size={16} className="text-gray-400" />
+          </div>
+          <input
+            type="text"
+            placeholder="Search by problem name or ID..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 dark:bg-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+          />
+        </div>
+      </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
           Category

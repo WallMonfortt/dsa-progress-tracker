@@ -29,6 +29,7 @@ const NeetCodeTracker = () => {
   const [filterDifficulty, setFilterDifficulty] = useState("All");
   const [showOnlyDueToday, setShowOnlyDueToday] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Save progress to localStorage whenever it changes
   useEffect(() => {
@@ -64,16 +65,22 @@ const NeetCodeTracker = () => {
 
       if (reviewIndex === null) {
         const newSolved = !current.solved;
-        return {
-          ...prev,
-          [problemId]: {
-            ...current,
-            solved: newSolved,
-            solvedDate: newSolved ? todayStr : null,
-            reviews: newSolved ? current.reviews : Array(5).fill(false),
-            dates: newSolved ? { ...current.dates, initial: todayStr } : {},
-          },
-        };
+        if (newSolved) {
+          return {
+            ...prev,
+            [problemId]: {
+              ...current,
+              solved: true,
+              solvedDate: todayStr,
+              reviews: Array(5).fill(false),
+              dates: { ...current.dates, initial: todayStr },
+            },
+          };
+        } else {
+          const newProgress = { ...prev };
+          delete newProgress[problemId];
+          return newProgress;
+        }
       } else {
         const newReviews = [...current.reviews];
         newReviews[reviewIndex] = !newReviews[reviewIndex];
@@ -242,6 +249,8 @@ const NeetCodeTracker = () => {
           setFilterDifficulty={setFilterDifficulty}
           showOnlyDueToday={showOnlyDueToday}
           setShowOnlyDueToday={setShowOnlyDueToday}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
 
         {/* Problems Table */}
@@ -253,6 +262,7 @@ const NeetCodeTracker = () => {
           filterCategory={filterCategory}
           filterDifficulty={filterDifficulty}
           showOnlyDueToday={showOnlyDueToday}
+          searchQuery={searchQuery}
         />
       </div>
     </div>

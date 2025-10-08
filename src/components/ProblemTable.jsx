@@ -14,6 +14,7 @@ const ProblemTable = ({
   filterCategory,
   filterDifficulty,
   showOnlyDueToday,
+  searchQuery = "",
 }) => {
   const today = new Date().toISOString().split("T")[0];
 
@@ -22,8 +23,12 @@ const ProblemTable = ({
       filterCategory === "All" || problem.category === filterCategory;
     const difficultyMatch =
       filterDifficulty === "All" || problem.difficulty === filterDifficulty;
+    // Search in both name and ID (partial match)
+    const searchMatch = !searchQuery || 
+      (problem.name && problem.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (problem.id && problem.id.toString().toLowerCase().includes(searchQuery.toLowerCase()));
 
-    if (!showOnlyDueToday) return categoryMatch && difficultyMatch;
+    if (!showOnlyDueToday) return categoryMatch && difficultyMatch && searchMatch;
 
     const prob = progress[problem.id];
     if (!prob || !prob.solved) return false;
