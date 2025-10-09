@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const AddProblemModal = ({ isOpen, onClose, onAdd }) => {
+const AddProblemModal = ({ isOpen, onClose, onAdd, error, onError }) => {
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -25,27 +25,42 @@ const AddProblemModal = ({ isOpen, onClose, onAdd }) => {
     };
   }, [isOpen, onClose]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name) return;
-    onAdd({
-      ...formData,
-      id: formData.id || `custom-${Date.now()}`,
-    });
+    if (!formData.name) {
+      onError('Problem name is required');
+      return;
+    }
 
-    setFormData({
+    try {
+      const result = await onAdd({
+        ...formData,
+        id: formData.id || `custom-${Date.now()}`,
+      });
+
+      if (result && !result.success) {
+        onError(result.message);
+        return;
+      }
+
+      setFormData({
         id: '',
         name: '',
         category: 'Array',
         difficulty: 'Medium',
         url: '',
       });
-
-    onClose();
+      onError('');
+      onClose();
+    } catch (err) {
+      onError('❌ An error occurred while adding the problem');
+      console.error('Error:', err);
+    }
   };
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
+      onError('');
       onClose();
     }
   };
@@ -135,6 +150,11 @@ const AddProblemModal = ({ isOpen, onClose, onAdd }) => {
             </button>
           </div>
         </form>
+        {error && (
+          <div className="mt-4 p-3 text-sm text-red-700 bg-red-100 rounded-md">
+            {error}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -30,11 +30,21 @@ const NeetCodeTracker = () => {
   const [showOnlyDueToday, setShowOnlyDueToday] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [customProblems, setCustomProblems] = useState([]);
+  const [customProblems, setCustomProblems] = useState(() => {
+    try {
+      const saved = localStorage.getItem('customProblems');
+      return saved ? JSON.parse(saved) : [];
+    } catch (error) {
+      console.error("Error loading custom problems:", error);
+      return [];
+    }
+  });
 
+  console.log('NeetCodeTracker render - customProblems:', customProblems.length);
   // Save progress to localStorage whenever it changes
   useEffect(() => {
     try {
+      console.log('Loading from localStorage - customProblems:', savedCustomProblems ? JSON.parse(savedCustomProblems).length : 0)
       const savedProgress = localStorage.getItem('neetcode-progress');
       if (savedProgress) {
         setProgress(JSON.parse(savedProgress));

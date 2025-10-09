@@ -81,7 +81,7 @@ const ProblemRow = ({
                 <div key={idx} className="flex flex-col items-center">
                   <button
                     onClick={() => toggleComplete(problem.id, idx)}
-                    className={`px-2 py-1 rounded text-xs dark:text-gray-200 border min-w-[60px] ${
+                    className={`px-2 py-1 rounded text-xs dark:text-gray-200 border min-w-[50px] ${
                       isCompleted
                         ? "bg-green-100 text-green-700 border-green-300 dark:bg-green-600 dark:text-green-400"
                         : overdue

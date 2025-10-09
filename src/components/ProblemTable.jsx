@@ -17,23 +17,48 @@ const ProblemTable = ({
   const today = new Date().toISOString().split("T")[0];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalError, setModalError] = useState('');
 
   const handleAddProblem = (newProblem) => {
-    const problemExists = problems.some(
-      problem =>
-        problem.id === newProblem.id ||
-        problem.name.toLowerCase() === newProblem.name.toLowerCase()
-    );
+    try {
+      const newName = newProblem.name.toLowerCase().trim();
+      const newId = newProblem.id || `custom-${Date.now()}`;
 
-    if (problemExists) {
-      alert('A problem with this ID or name already exists!');
-      return;
-    }
+      const allProblems = [...problems, ...customProblems];
+      const problemExists = allProblems.some(problem =>
+        String(problem.id) === newId ||
+        problem.name.toLowerCase().trim() === newName
+      );
 
-    const updatedCustomProblems = [...customProblems, newProblem];
-    localStorage.setItem('customProblems', JSON.stringify(updatedCustomProblems));
-    if (onProblemsUpdate) {
-      onProblemsUpdate(updatedCustomProblems);
+      if (problemExists) {
+        return {
+          success: false,
+          message: '❌ A problem with this ID or name already exists'
+        };
+      }
+
+      const problemToAdd = {
+        ...newProblem,
+        id: newId,
+        category: newProblem.category || "Custom",
+        difficulty: newProblem.difficulty || "Medium",
+        url: newProblem.url || "#"
+      };
+
+      const updatedCustomProblems = [...customProblems, problemToAdd];
+      localStorage.setItem('customProblems', JSON.stringify(updatedCustomProblems));
+
+      if (onProblemsUpdate) {
+        onProblemsUpdate(updatedCustomProblems);
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error('Error adding problem:', error);
+      return {
+        success: false,
+        message: '❌ An error occurred while adding the problem'
+      };
     }
   };
 
@@ -42,6 +67,7 @@ const ProblemTable = ({
       filterCategory === "All" || problem.category === filterCategory;
     const difficultyMatch =
       filterDifficulty === "All" || problem.difficulty === filterDifficulty;
+
     // Search in both name and ID (partial match)
     const searchMatch = !searchQuery ||
       (problem.name && problem.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
@@ -57,22 +83,6 @@ const ProblemTable = ({
     );
     return categoryMatch && difficultyMatch && isDueToday;
   });
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-  };
-
-  const isOverdue = (date) => {
-    return date < today;
-  };
-
-  const isDueToday = (date) => {
-    return date === today;
-  };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
@@ -129,8 +139,13 @@ const ProblemTable = ({
       </div>
       <AddProblemModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setModalError('');
+          setIsModalOpen(false);
+        }}
         onAdd={handleAddProblem}
+        error={modalError}
+        onError={setModalError}
       />
     </div>
   );
