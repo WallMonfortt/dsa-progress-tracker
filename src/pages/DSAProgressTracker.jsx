@@ -13,7 +13,7 @@ import { problems } from "../data";
 // --- Spaced repetition intervals ---
 const intervals = [1, 3, 7, 14, 30, 60];
 
-const NeetCodeTracker = () => {
+const DSAProgressTracker = () => {
   // --- Local state with localStorage ---
   const [progress, setProgress] = useState(() => {
     try {
@@ -171,7 +171,7 @@ const NeetCodeTracker = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-gray-800 mb-2 dark:text-white">
-                CodeTrack Pro - NeetCode 150 Progress Tracker
+                DSA progress tracker - NeetCode 150
               </h1>
               <p className="text-gray-600 dark:text-gray-300">
                 Track your progress with spaced repetition
@@ -311,4 +311,4 @@ const NeetCodeTracker = () => {
   );
 };
 
-export default NeetCodeTracker;
+export default DSAProgressTracker;
