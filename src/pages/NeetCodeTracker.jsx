@@ -11,7 +11,7 @@ import { problems } from "../data";
 
 
 // --- Spaced repetition intervals ---
-const intervals = [1, 3, 7, 14, 30];
+const intervals = [1, 3, 7, 14, 30, 60];
 
 const NeetCodeTracker = () => {
   // --- Local state with localStorage ---
@@ -30,15 +30,40 @@ const NeetCodeTracker = () => {
   const [showOnlyDueToday, setShowOnlyDueToday] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [customProblems, setCustomProblems] = useState([]);
 
   // Save progress to localStorage whenever it changes
   useEffect(() => {
     try {
-      localStorage.setItem("neetcode-progress", JSON.stringify(progress));
+      const savedProgress = localStorage.getItem('neetcode-progress');
+      if (savedProgress) {
+        setProgress(JSON.parse(savedProgress));
+      }
+
+      const savedCustomProblems = localStorage.getItem('customProblems');
+      if (savedCustomProblems) {
+        setCustomProblems(JSON.parse(savedCustomProblems));
+      }
     } catch (error) {
-      console.error("Error saving progress to localStorage:", error);
+      console.error('Error loading data from localStorage:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('neetcode-progress', JSON.stringify(progress));
+    } catch (error) {
+      console.error('Error saving progress:', error);
     }
   }, [progress]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('customProblems', JSON.stringify(customProblems));
+    } catch (error) {
+      console.error('Error saving custom problems:', error);
+    }
+  }, [customProblems]);
 
   // --- Helpers ---
   const today = new Date().toISOString().split("T")[0];
@@ -237,7 +262,12 @@ const NeetCodeTracker = () => {
         </div>
 
         {/* Export / Import / Clear */}
-        <ExportImportControls progress={progress} setProgress={setProgress} />
+        <ExportImportControls
+          progress={progress}
+          setProgress={setProgress}
+          customProblems={customProblems}
+          setCustomProblems={setCustomProblems}
+        />
 
         {/* Filters */}
         <Filters
@@ -256,6 +286,7 @@ const NeetCodeTracker = () => {
         {/* Problems Table */}
         <ProblemTable
           problems={problems}
+          customProblems={customProblems}
           progress={progress}
           toggleComplete={toggleComplete}
           calculateNextReviews={calculateNextReviews}
@@ -263,6 +294,7 @@ const NeetCodeTracker = () => {
           filterDifficulty={filterDifficulty}
           showOnlyDueToday={showOnlyDueToday}
           searchQuery={searchQuery}
+          onProblemsUpdate={setCustomProblems}
         />
       </div>
     </div>
