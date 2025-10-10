@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Info, ExternalLink, Map } from "lucide-react";
 import {
   Filters,
@@ -8,69 +8,18 @@ import {
 } from "../components";
 import { problems } from "../data";
 import { calculateNextReviews, getToday } from "../utils/dateUtils";
-
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const DSAProgressTracker = () => {
-  // --- Local state with localStorage ---
-  const [progress, setProgress] = useState(() => {
-    try {
-      const savedProgress = localStorage.getItem("neetcode-progress");
-      return savedProgress ? JSON.parse(savedProgress) : {};
-    } catch (error) {
-      console.error("Error loading progress from localStorage:", error);
-      return {};
-    }
-  });
+  const [progress, setProgress] = useLocalStorage("neetcode-progress", {});
+  const [customProblems, setCustomProblems] = useLocalStorage("custom-problems", []);
 
   const [filterCategory, setFilterCategory] = useState("All");
   const [filterDifficulty, setFilterDifficulty] = useState("All");
   const [showOnlyDueToday, setShowOnlyDueToday] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [customProblems, setCustomProblems] = useState(() => {
-    try {
-      const saved = localStorage.getItem('customProblems');
-      return saved ? JSON.parse(saved) : [];
-    } catch (error) {
-      console.error("Error loading custom problems:", error);
-      return [];
-    }
-  });
 
-  // Save progress to localStorage whenever it changes
-  useEffect(() => {
-    try {
-      const savedProgress = localStorage.getItem('neetcode-progress');
-      if (savedProgress) {
-        setProgress(JSON.parse(savedProgress));
-      }
-
-      const savedCustomProblems = localStorage.getItem('customProblems');
-      if (savedCustomProblems) {
-        setCustomProblems(JSON.parse(savedCustomProblems));
-      }
-    } catch (error) {
-      console.error('Error loading data from localStorage:', error);
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('neetcode-progress', JSON.stringify(progress));
-    } catch (error) {
-      console.error('Error saving progress:', error);
-    }
-  }, [progress]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('customProblems', JSON.stringify(customProblems));
-    } catch (error) {
-      console.error('Error saving custom problems:', error);
-    }
-  }, [customProblems]);
-
-  // --- Helpers ---
   const today = getToday();
 
   const toggleComplete = (problemId, reviewIndex = null) => {
