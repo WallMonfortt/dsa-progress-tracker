@@ -137,28 +137,39 @@ const DSAProgressTracker = () => {
     });
   };
 
+  const allProblems = [...problems, ...customProblems];
   const categories = [
     "All",
-    ...Array.from(new Set(problems.map((p) => p.category))),
+    ...Array.from(new Set([
+      ...problems.map((p) => p.category),
+      ...customProblems.map((p) => p.category)
+    ])).filter(Boolean),
   ];
+  
   const difficulties = ["All", "Easy", "Medium", "Hard"];
 
+  
+  const isProblemSolved = (problemId) => {
+    const progressItem = progress[problemId];
+    return progressItem && progressItem.solved === true;
+  };
+
   const stats = {
-    total: problems.length,
-    solved: Object.values(progress).filter((p) => p.solved).length,
-    easy: problems.filter(
-      (p) => p.difficulty === "Easy" && progress[p.id]?.solved
+    total: allProblems.length,
+    solved: allProblems.filter(p => isProblemSolved(p.id)).length,
+    easy: allProblems.filter(
+      (p) => p.difficulty === "Easy" && isProblemSolved(p.id)
     ).length,
-    medium: problems.filter(
-      (p) => p.difficulty === "Medium" && progress[p.id]?.solved
+    medium: allProblems.filter(
+      (p) => p.difficulty === "Medium" && isProblemSolved(p.id)
     ).length,
-    hard: problems.filter(
-      (p) => p.difficulty === "Hard" && progress[p.id]?.solved
+    hard: allProblems.filter(
+      (p) => p.difficulty === "Hard" && isProblemSolved(p.id)
     ).length,
   };
 
   const getDueProblems = () => {
-    return problems.filter((problem) => {
+    return allProblems.filter((problem) => {
       const prob = progress[problem.id];
       if (!prob || !prob.solved) return false;
       const nextReviews = calculateNextReviews(prob.solvedDate);
