@@ -7,11 +7,8 @@ import {
   ExportImportControls,
 } from "../components";
 import { problems } from "../data";
+import { calculateNextReviews, getToday } from "../utils/dateUtils";
 
-
-
-// --- Spaced repetition intervals ---
-const intervals = [1, 3, 7, 14, 30, 60];
 
 const DSAProgressTracker = () => {
   // --- Local state with localStorage ---
@@ -74,27 +71,9 @@ const DSAProgressTracker = () => {
   }, [customProblems]);
 
   // --- Helpers ---
-  const getLocalDateString = (date = new Date()) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
-
-  const today = getLocalDateString();
-
-  const calculateNextReviews = (solvedDate) => {
-    if (!solvedDate) return [];
-    const date = new Date(solvedDate);
-    return intervals.map((days) => {
-      const nextDate = new Date(date);
-      nextDate.setDate(date.getDate() + days);
-      return getLocalDateString(nextDate);
-    });
-  };
+  const today = getToday();
 
   const toggleComplete = (problemId, reviewIndex = null) => {
-    const todayStr = getLocalDateString();
     setProgress((prev) => {
       const current = prev[problemId] || {
         solved: false,
@@ -110,9 +89,9 @@ const DSAProgressTracker = () => {
             [problemId]: {
               ...current,
               solved: true,
-              solvedDate: todayStr,
+              solvedDate: today,
               reviews: Array(5).fill(false),
-              dates: { ...current.dates, initial: todayStr },
+              dates: { ...current.dates, initial: today },
             },
           };
         } else {
@@ -125,7 +104,7 @@ const DSAProgressTracker = () => {
         newReviews[reviewIndex] = !newReviews[reviewIndex];
         const newDates = { ...current.dates };
         if (newReviews[reviewIndex]) {
-          newDates[`review${reviewIndex + 1}`] = todayStr;
+          newDates[`review${reviewIndex + 1}`] = today;
         } else {
           delete newDates[`review${reviewIndex + 1}`];
         }
@@ -174,7 +153,9 @@ const DSAProgressTracker = () => {
       if (!prob || !prob.solved) return false;
       const nextReviews = calculateNextReviews(prob.solvedDate);
       return nextReviews.some(
-        (date, idx) => !prob.reviews?.[idx] && date <= today
+        (date, idx) => {
+          return !prob.reviews?.[idx] && date <= today
+        }
       );
     }).length;
   };
@@ -258,7 +239,7 @@ const DSAProgressTracker = () => {
                     <li>
                       3. Click review buttons when you successfully review
                     </li>
-                    <li>4. Use "Due Today" filter to see what needs review</li>
+                    <li>4. Use "Due Today/Overdue" filter to see what needs review</li>
                     <li>5. Check the Official Roadmap for study guidance</li>
                   </ul>
                 </div>

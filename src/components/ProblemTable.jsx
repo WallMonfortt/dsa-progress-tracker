@@ -1,20 +1,19 @@
+import { useState } from "react";
 import AddProblemModal from "./AddProblemModal";
 import { ProblemRow } from "./table";
-import { useState } from "react";
+import { isDueToday, isOverdue, calculateNextReviews } from "../utils/dateUtils";
 
 const ProblemTable = ({
   problems,
   customProblems,
   progress,
   toggleComplete,
-  calculateNextReviews,
   filterCategory,
   filterDifficulty,
   showOnlyDueToday,
   searchQuery = "",
   onProblemsUpdate,
 }) => {
-  const today = new Date().toISOString().split("T")[0];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalError, setModalError] = useState('');
@@ -77,11 +76,12 @@ const ProblemTable = ({
 
     const prob = progress[problem.id];
     if (!prob || !prob.solved) return false;
+    
     const nextReviews = calculateNextReviews(prob.solvedDate);
-    const isDueToday = nextReviews.some(
-      (date, idx) => !prob.reviews?.[idx] && date <= today
+    const filterIsDueToday = nextReviews.some(
+      (date, idx) => (isDueToday(date) || isOverdue(date)) && !prob.reviews?.[idx] 
     );
-    return categoryMatch && difficultyMatch && isDueToday;
+    return categoryMatch && difficultyMatch && filterIsDueToday;
   });
 
   return (
@@ -130,7 +130,6 @@ const ProblemTable = ({
                   progress={progress}
                   toggleComplete={toggleComplete}
                   calculateNextReviews={calculateNextReviews}
-                  today={today}
                 />
               );
             })}

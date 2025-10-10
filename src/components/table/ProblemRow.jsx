@@ -1,4 +1,5 @@
 import { CheckCircle2, Circle, Calendar, ExternalLink } from "lucide-react";
+import { isOverdue, isDueToday, calculateNextReviews } from "../../utils/dateUtils";
 
 const difficultyColor = {
   Easy: "text-green-600 dark:text-green-400",
@@ -10,8 +11,6 @@ const ProblemRow = ({
   problem, 
   progress, 
   toggleComplete, 
-  calculateNextReviews,
-  today 
 }) => {
   const prob = progress[problem.id] || {};
   const nextReviews = calculateNextReviews(prob.solvedDate);
@@ -24,8 +23,6 @@ const ProblemRow = ({
     });
   };
 
-  const isOverdue = (date) => date < today;
-  const isDueToday = (date) => date === today;
 
   return (
     <tr key={problem.id} className="hover:bg-gray-50 dark:hover:bg-gray-500">

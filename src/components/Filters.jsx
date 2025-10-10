@@ -79,7 +79,7 @@ const Filters = ({
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white dark:bg-gray-600 dark:text-white"
         />
         <label className="text-sm font-medium text-gray-700 dark:text-white">
-          Show Only Due Today
+          Show pending problems
         </label>
       </div>
     </div>
