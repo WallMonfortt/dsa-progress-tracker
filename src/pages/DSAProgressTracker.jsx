@@ -40,11 +40,9 @@ const DSAProgressTracker = () => {
     }
   });
 
-  console.log('NeetCodeTracker render - customProblems:', customProblems.length);
   // Save progress to localStorage whenever it changes
   useEffect(() => {
     try {
-      console.log('Loading from localStorage - customProblems:', savedCustomProblems ? JSON.parse(savedCustomProblems).length : 0)
       const savedProgress = localStorage.getItem('neetcode-progress');
       if (savedProgress) {
         setProgress(JSON.parse(savedProgress));
@@ -76,21 +74,27 @@ const DSAProgressTracker = () => {
   }, [customProblems]);
 
   // --- Helpers ---
-  const today = new Date().toISOString().split("T")[0];
+  const getLocalDateString = (date = new Date()) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const today = getLocalDateString();
 
   const calculateNextReviews = (solvedDate) => {
     if (!solvedDate) return [];
     const date = new Date(solvedDate);
-    return intervals.map(
-      (days) =>
-        new Date(date.getTime() + days * 24 * 60 * 60 * 1000)
-          .toISOString()
-          .split("T")[0]
-    );
+    return intervals.map((days) => {
+      const nextDate = new Date(date);
+      nextDate.setDate(date.getDate() + days);
+      return getLocalDateString(nextDate);
+    });
   };
 
   const toggleComplete = (problemId, reviewIndex = null) => {
-    const todayStr = new Date().toISOString().split("T")[0];
+    const todayStr = getLocalDateString();
     setProgress((prev) => {
       const current = prev[problemId] || {
         solved: false,

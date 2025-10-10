@@ -22,7 +22,7 @@ const ProblemTable = ({
   const handleAddProblem = (newProblem) => {
     try {
       const newName = newProblem.name.toLowerCase().trim();
-      const newId = newProblem.id || `custom-${Date.now()}`;
+      const newId = newProblem.id || `c-${btoa(Date.now()).slice(0, -2)}`;
 
       const allProblems = [...problems, ...customProblems];
       const problemExists = allProblems.some(problem =>
