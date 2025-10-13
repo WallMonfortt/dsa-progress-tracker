@@ -1,145 +1,91 @@
-# 🧠 CodeTrack Pro - NeetCode 150 Progress Tracker
+# DSA Progress Tracker 🚀
 
-A modern, interactive web application to track your progress through the famous NeetCode 150 problems with built-in spaced repetition system for long-term retention.
-
-![NeetCode Tracker](https://img.shields.io/badge/React-18.2.0-blue.svg)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4.0-38B2AC.svg)
-![Vite](https://img.shields.io/badge/Vite-5.0.0-646CFF.svg)
-
-## ✨ Features
-
-### 📊 Progress Tracking
-- **Complete Problem Tracking**: Mark problems as solved with automatic date tracking
-- **Visual Progress Stats**: See your progress across Easy, Medium, and Hard difficulties
-- **Category Filtering**: Filter by problem categories (Arrays & Hashing, Two Pointers, etc.)
-- **Difficulty Filtering**: Filter by Easy, Medium, or Hard problems
-
-### 🔄 Spaced Repetition System
-- **Scientifically-Based Intervals**: Review problems at optimal intervals (1, 3, 7, 14, 30 days)
-- **Smart Review Scheduling**: Automatic calculation of review due dates
-- **Due Today Filter**: Quickly see which problems need review today
-- **Visual Review Status**: Color-coded review buttons showing completion status
-
-### 💾 Data Persistence
-- **Local Storage**: All progress automatically saved to browser's local storage
-- **Export/Import**: Backup your progress with JSON export/import functionality
-- **Cross-Session Persistence**: Progress survives browser restarts and refreshes
-
-### 🎨 Modern UI/UX
-- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
-- **Clean Interface**: Modern, distraction-free design using Tailwind CSS
-- **Interactive Elements**: Hover effects, color-coded status indicators
-- **Informative Tooltips**: Helpful information displayed on hover
-
-## 🚀 Live Demo
-
-[View Live Demo](https://neetcode-tracker.vercel.app/)
-
-## 🛠️ Installation
-
-### Prerequisites
-- Node.js
-- npm or yarn
-
-### Setup
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/neetcode-tracker.git
-   cd neetcode-tracker
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-## 📦 Build for Production
-
-```bash
-npm run build
-```
-
-The built files will be in the `dist/` directory, ready for deployment.
-
-## 🎯 How to Use
-
-### Getting Started
-1. **Mark Problems as Solved**: Click the circle icon next to any problem when you complete it
-2. **Review Schedule Appears**: Once solved, you'll see 5 review buttons (R1-R5) with due dates
-3. **Complete Reviews**: Click review buttons when you successfully review the problem
-4. **Track Progress**: Use filters and stats to monitor your overall progress
-
-### Spaced Repetition Schedule
-- **R1**: Review after 1 day
-- **R2**: Review after 3 days  
-- **R3**: Review after 7 days (1 week)
-- **R4**: Review after 14 days (2 weeks)
-- **R5**: Review after 30 days (1 month)
-
-### Color Coding
-- 🟢 **Green**: Review completed
-- 🟡 **Yellow**: Due today
-- 🔴 **Red**: Overdue
-- ⚪ **Gray**: Future review
-
-### Data Management
-- **Export**: Download your progress as a JSON file for backup
-- **Import**: Restore progress from a previously exported file
-- **Clear All**: Reset all progress (with confirmation dialog)
-
-## 🔧 Technologies Used
-
-- **Frontend Framework**: React 19.1.1
-- **Build Tool**: Vite 7.1.7
-- **Styling**: Tailwind CSS 3.4.18
-- **Icons**: Lucide React 0.544.0
-- **Data Storage**: Browser LocalStorage
-- **Language**: JavaScript (ES6+)
-
-## 📱 Browser Compatibility
-
-- ✅ Chrome (recommended)
-- ✅ Firefox
-- ✅ Safari
-- ✅ Edge
-- ✅ Mobile browsers
-
-## 📋 Roadmap
-
-- [x] Dark mode support
-- [ ] Custom problem sets
-- [ ] Study streaks tracking
-- [ ] Performance analytics
-- [ ] Social features (optional)
-- [ ] Mobile app version
-
-## ❓ FAQ
-
-**Q: Will my progress be lost if I clear browser data?**
-A: Yes, since data is stored in localStorage. Use the export feature to backup your progress.
-
-**Q: Can I access my progress from different devices?**
-A: Currently no, as data is stored locally. You can export from one device and import to another.
-
-**Q: Can I add custom problems?**
-A: Not currently, but this feature is planned for future releases.
-
-## 🙏 Acknowledgments
-
-- **NeetCode**: For the excellent problem curation and learning resources
-- **Spaced Repetition Research**: Based on cognitive science research for optimal learning
-- **React Community**: For the amazing ecosystem and tools
+A personalized dashboard to supercharge my Data Structures & Algorithms practice for technical interviews.
 
 ---
 
-⭐ **Star this repository if it helped you ace your coding interviews!**
+## 🔥 About The Project
 
-Made with ❤️ for the coding community
+This is my personal version of a tool designed to track progress on coding platforms like NeetCode and LeetCode. While it began as a fork, it is now evolving to include specific features tailored to my study routine and interview preparation goals.
+
+The objective is to create an all-in-one tool that not only logs solved problems but also facilitates active recall and helps identify areas for improvement.
+
+### 🛠️ Built With
+
+* [Next.js](https://nextjs.org/)
+* [React](https://reactjs.org/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Tailwind CSS](https://tailwindcss.com/)
+
+---
+
+## ✨ Key Features
+
+* ✅ **Visual Tracking:** Log completed problems across various categories (Arrays, Graphs, DP, etc.).
+* ✅ **Automatic Sync:** Progress is saved automatically to the browser's local storage.
+* ✏️ **Note-Taking System (In Progress):** A dedicated section for each problem to add personal notes, time/space complexity (Big O), and solution approaches.
+* ⏱️ **Practice Timer (Planned):** A feature to time problem-solving sessions, simulating real interview conditions.
+* 🏷️ **Custom Tags (Planned):** A system to tag problems with labels like "Review in 7 days," "Tricky," or "Favorite."
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to get a local copy up and running.
+
+### Prerequisites
+
+Ensure you have Node.js installed on your machine.
+* npm
+    ```sh
+    npm install npm@latest -g
+    ```
+
+### Installation
+
+1.  Clone the repo
+    ```sh
+    git clone [https://github.com/WallMonfortt/dsa-progress-tracker.git](https://github.com/WallMonfortt/dsa-progress-tracker.git)
+    ```
+2.  Navigate to the project directory
+    ```sh
+    cd dsa-progress-tracker
+    ```
+3.  Install dependencies
+    ```sh
+    # Using npm
+    npm install
+
+    # Or using pnpm (faster and more efficient)
+    # pnpm install
+    ```
+4.  Start the development server
+    ```sh
+    # With npm
+    npm run dev
+
+    # Or with pnpm
+    # pnpm dev
+    ```
+5.  Open [http://localhost:5173](http://localhost:5173) in your browser to see the result!
+
+---
+
+## 🗺️ Roadmap
+
+* [ ] Implement per-problem note-taking feature.
+* [ ] Add a practice timer.
+* [ ] Develop a custom tagging system.
+* [ ] See the open [Issues](https://github.com/WallMonfortt/dsa-progress-tracker/issues) for a full list of proposed features (and known issues). ---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+---
+
+## 🙏 Acknowledgements (Important!)
+
+I want to extend a special thanks to **Javlonbek Kosimov ([javydevx](https://github.com/javydevx))** for his incredible work in creating the original project, [neetcode-tracker](https://github.com/javydevx/neetcode-tracker).
+
+This project would not be possible without his foundational codebase, which served as the primary inspiration and starting point for this new version. If you find this tool helpful, please consider visiting the original repository to give it a star. ⭐

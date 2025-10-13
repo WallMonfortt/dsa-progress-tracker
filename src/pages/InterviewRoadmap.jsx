@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Briefcase,
   Code,
@@ -11,6 +11,7 @@ import {
   Brain,
   Rocket,
 } from "lucide-react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import { interviewRoadmap, dsaMindmap } from "../data";
 
 const iconMap = {
@@ -27,27 +28,8 @@ const iconMap = {
 
 const InterviewRoadmap = () => {
   const [expandedSections, setExpandedSections] = useState({});
-  const [completedItems, setCompletedItems] = useState(() => {
-    try {
-      const saved = localStorage.getItem("interview-progress");
-      return saved ? JSON.parse(saved) : {};
-    } catch {
-      return {};
-    }
-  });
+  const [completedItems, setCompletedItems] = useLocalStorage("interview-progress", {});
   const [activeTab, setActiveTab] = useState("interview");
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(
-        "interview-progress",
-        JSON.stringify(completedItems)
-      );
-    } catch (error) {
-      console.error("Error saving interview progress:", error);
-    }
-  }, [completedItems]);
-
 
   const toggleSection = (id) => {
     setExpandedSections((prev) => ({ ...prev, [id]: !prev[id] }));

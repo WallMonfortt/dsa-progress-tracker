@@ -1,4 +1,4 @@
-import { Filter, Search } from "lucide-react";
+import { Filter, Search, X } from "lucide-react";
 
 const Filters = ({
   categories,
@@ -32,7 +32,15 @@ const Filters = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 dark:bg-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-          />
+          />{searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+              title="Clear search"
+            >
+              <X size={18} />
+            </button>
+          )}
         </div>
       </div>
       <div>
@@ -79,7 +87,7 @@ const Filters = ({
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white dark:bg-gray-600 dark:text-white"
         />
         <label className="text-sm font-medium text-gray-700 dark:text-white">
-          Show Only Due Today
+          Show pending problems
         </label>
       </div>
     </div>

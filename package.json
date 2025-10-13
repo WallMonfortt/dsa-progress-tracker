@@ -1,7 +1,13 @@
 {
-  "name": "neetcode-tracker",
+  "name": "dsa-progress-tracker",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.0.0",
+  "description": "A personalized dashboard to track my DSA progress for technical interviews.",
+  "author": "WallMonfortt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WallMonfortt/dsa-progress-tracker.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",

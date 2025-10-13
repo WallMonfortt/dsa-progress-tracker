@@ -9,6 +9,7 @@ const ExportImportControls = ({
     const data = {
       progress,
       customProblems,
+      interviewProgress: JSON.parse(localStorage.getItem('interview-progress') || '{}'),
       version: '1.0',
       exportedAt: new Date().toISOString()
     };
@@ -30,7 +31,7 @@ const ExportImportControls = ({
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
-        const { progress: importedProgress, customProblems: importedCustomProblems } = JSON.parse(e.target.result);
+        const { progress: importedProgress, customProblems: importedCustomProblems, interviewProgress } = JSON.parse(e.target.result);
 
         if (importedProgress) {
           setProgress(importedProgress);
@@ -39,7 +40,11 @@ const ExportImportControls = ({
 
         if (importedCustomProblems) {
           setCustomProblems(importedCustomProblems);
-          localStorage.setItem('customProblems', JSON.stringify(importedCustomProblems));
+          localStorage.setItem('custom-problems', JSON.stringify(importedCustomProblems));
+        }
+
+        if (interviewProgress) {
+          localStorage.setItem('interview-progress', JSON.stringify(interviewProgress));
         }
 
         alert("Data imported successfully!");
@@ -57,7 +62,8 @@ const ExportImportControls = ({
       setProgress({});
       setCustomProblems([]);
       localStorage.removeItem('neetcode-progress');
-      localStorage.removeItem('customProblems');
+      localStorage.removeItem('custom-problems');
+      localStorage.removeItem('interview-progress');
     }
   };
 
