@@ -19,7 +19,7 @@ const Filters = ({
     </div>
     <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-center">
       <div className="md:col-span-2">
-        <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
+        <label htmlFor="search-problems" className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
           Search Problems
         </label>
         <div className="relative">
@@ -27,6 +27,7 @@ const Filters = ({
             <Search size={16} className="text-gray-400" />
           </div>
           <input
+            id="search-problems"
             type="text"
             placeholder="Search by problem name or ID..."
             value={searchQuery}
@@ -44,10 +45,11 @@ const Filters = ({
         </div>
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
+        <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
           Category
         </label>
         <select
+          id="category"
           title="Category"
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
@@ -61,10 +63,11 @@ const Filters = ({
         </select>
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
+        <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
           Difficulty
         </label>
         <select
+          id="difficulty"
           title="Difficulty"
           value={filterDifficulty}
           onChange={(e) => setFilterDifficulty(e.target.value)}
@@ -86,7 +89,7 @@ const Filters = ({
           onChange={() => setShowOnlyDueToday((prev) => !prev)}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white dark:bg-gray-600 dark:text-white"
         />
-        <label className="text-sm font-medium text-gray-700 dark:text-white">
+        <label htmlFor="due-today-checkbox" className="text-sm font-medium text-gray-700 dark:text-white">
           Show pending problems
         </label>
       </div>
