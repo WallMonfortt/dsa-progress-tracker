@@ -35,7 +35,7 @@ const AddProblemModal = ({ isOpen, onClose, onAdd, error, onError }) => {
     try {
       const result = await onAdd({
         ...formData,
-        id: formData.id || `custom-${Date.now()}`,
+        id: formData.id,
       });
 
       if (result && !result.success) {

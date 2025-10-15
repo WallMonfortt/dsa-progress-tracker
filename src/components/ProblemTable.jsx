@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import AddProblemModal from "./AddProblemModal";
 import { ProblemRow } from "./table";
 import { isDueToday, isOverdue, calculateNextReviews } from "../utils/dateUtils";
@@ -45,10 +45,11 @@ const ProblemTable = ({
       };
 
       const updatedCustomProblems = [...customProblems, problemToAdd];
-      localStorage.setItem('customProblems', JSON.stringify(updatedCustomProblems));
-
+      
       if (onProblemsUpdate) {
         onProblemsUpdate(updatedCustomProblems);
+      } else {
+        console.warn('onProblemsUpdate is not defined');
       }
 
       return { success: true };
@@ -61,13 +62,25 @@ const ProblemTable = ({
     }
   };
 
-  const filteredProblems = [...problems, ...customProblems].filter((problem) => {
-    const categoryMatch =
-      filterCategory === "All" || problem.category === filterCategory;
-    const difficultyMatch =
-      filterDifficulty === "All" || problem.difficulty === filterDifficulty;
+  const allProblems = useMemo(() => {
+    const problemsMap = new Map();
+    
+    problems.forEach(problem => {
+      if (!problemsMap.has(problem.id)) {
+        problemsMap.set(problem.id, { ...problem, isCustom: false });
+      }
+    });
+    
+    customProblems.forEach(problem => {
+      problemsMap.set(problem.id, { ...problem, isCustom: true });
+    });
+    
+    return Array.from(problemsMap.values());
+  }, [problems, customProblems]);
 
-    // Search in both name and ID (partial match)
+  const filteredProblems = allProblems.filter((problem) => {
+    const categoryMatch = filterCategory === "All" || problem.category === filterCategory;
+    const difficultyMatch = filterDifficulty === "All" || problem.difficulty === filterDifficulty;
     const searchMatch = !searchQuery ||
       (problem.name && problem.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (problem.id && problem.id.toString().toLowerCase().includes(searchQuery.toLowerCase()));
@@ -79,8 +92,9 @@ const ProblemTable = ({
     
     const nextReviews = calculateNextReviews(prob.solvedDate);
     const filterIsDueToday = nextReviews.some(
-      (date, idx) => (isDueToday(date) || isOverdue(date)) && !prob.reviews?.[idx] 
+      (date, idx) => (isDueToday(date) || isOverdue(date)) && !prob.reviews?.[idx]
     );
+    
     return categoryMatch && difficultyMatch && filterIsDueToday;
   });
 
