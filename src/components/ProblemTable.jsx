@@ -45,7 +45,7 @@ const ProblemTable = ({
       };
 
       const updatedCustomProblems = [...customProblems, problemToAdd];
-      
+
       if (onProblemsUpdate) {
         onProblemsUpdate(updatedCustomProblems);
       } else {
@@ -64,17 +64,17 @@ const ProblemTable = ({
 
   const allProblems = useMemo(() => {
     const problemsMap = new Map();
-    
+
     problems.forEach(problem => {
       if (!problemsMap.has(problem.id)) {
         problemsMap.set(problem.id, { ...problem, isCustom: false });
       }
     });
-    
+
     customProblems.forEach(problem => {
       problemsMap.set(problem.id, { ...problem, isCustom: true });
     });
-    
+
     return Array.from(problemsMap.values());
   }, [problems, customProblems]);
 
@@ -89,12 +89,12 @@ const ProblemTable = ({
 
     const prob = progress[problem.id];
     if (!prob || !prob.solved) return false;
-    
+
     const nextReviews = calculateNextReviews(prob.solvedDate);
     const filterIsDueToday = nextReviews.some(
       (date, idx) => (isDueToday(date) || isOverdue(date)) && !prob.reviews?.[idx]
     );
-    
+
     return categoryMatch && difficultyMatch && filterIsDueToday;
   });
 
@@ -112,25 +112,25 @@ const ProblemTable = ({
 
 
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600 table-fixed w-full">
           <thead className="bg-gray-50 dark:bg-gray-600">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+              <th className="w-12 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
                 #
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+              <th className="w-1/4 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
                 Name
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+              <th className="w-1/6 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
                 Category
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+              <th className="w-24 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
                 Difficulty
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+              <th className="w-24 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+              <th className="w-1/3 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
                 Reviews & Due Dates
               </th>
             </tr>

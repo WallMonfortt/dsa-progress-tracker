@@ -26,32 +26,33 @@ const ProblemRow = ({
 
   return (
     <tr key={problem.id} className="hover:bg-gray-50 dark:hover:bg-gray-500">
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-800">
+      <td className="w-16 px-2 py-4 text-sm text-gray-900 dark:text-gray-800 truncate" title={problem.id}>
         {problem.id}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+      <td className="w-1/4 px-2 py-4 text-sm font-medium text-gray-900 dark:text-white">
         <div className="flex items-center gap-2">
           <a
             href={problem.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 dark:text-blue-700 dark:hover:text-blue-400 hover:text-blue-800 hover:underline flex items-center gap-1"
+            className="text-blue-600 dark:text-gray-800 dark:hover:text-blue-400 hover:text-blue-800 hover:underline flex items-center gap-1 truncate"
             title={`Open ${problem.name} on NeetCode`}
           >
-            {problem.name}
+            <span className="truncate">{problem.name}</span>
             <ExternalLink size={14} className="flex-shrink-0" />
           </a>
         </div>
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-800">
+      <td className="w-1/6 px-2 py-4 text-sm text-gray-500 dark:text-gray-800 truncate" title={problem.category}>
         {problem.category}
       </td>
       <td
-        className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${difficultyColor[problem.difficulty]}`}
+        className={`w-24 px-2 py-4 text-sm font-semibold ${difficultyColor[problem.difficulty]} truncate`}
+        title={problem.difficulty}
       >
         {problem.difficulty}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap">
+      <td className="w-24 px-2 py-4 whitespace-nowrap">
         <button
           onClick={() => toggleComplete(problem.id)}
           className="flex items-center gap-2 text-gray-600 dark:text-gray-800 hover:text-gray-800"
@@ -66,7 +67,7 @@ const ProblemRow = ({
           </span>
         </button>
       </td>
-      <td className="px-6 py-4">
+      <td className="w-1/3 px-2 py-4">
         {prob.solved ? (
           <div className="flex flex-wrap gap-2">
             {nextReviews.map((date, idx) => {
@@ -82,7 +83,8 @@ const ProblemRow = ({
                       isCompleted
                         ? "bg-green-100 text-green-700 border-green-300 dark:bg-green-600 dark:text-green-400"
                         : overdue
-                        ? "bg-red-100 text-red-700 border-red-300 dark:bg-red-600 dark:text-red-400"
+                        ? "bg-red-100 text-red-700 border-red-300 dark:bg-red-600 dark:text-red-300 dark:border-red-200"
+
                         : dueToday
                         ? "bg-yellow-100 text-yellow-700 border-yellow-300 dark:bg-yellow-600 dark:text-yellow-400"
                         : "bg-gray-100 text-gray-600 border-gray-300 dark:bg-gray-600 dark:text-gray-400"
@@ -96,7 +98,7 @@ const ProblemRow = ({
                       isCompleted
                         ? "text-green-600 dark:text-green-400"
                         : overdue
-                        ? "text-red-600 dark:text-red-400"
+                        ? "text-red-600 dark:text-red-800"
                         : dueToday
                         ? "text-yellow-600 dark:text-yellow-400"
                         : "text-gray-500 dark:text-gray-800"
