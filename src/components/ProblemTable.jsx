@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import AddProblemModal from "./AddProblemModal";
 import { ProblemRow } from "./table";
 import { isDueToday, isOverdue, calculateNextReviews } from "../utils/dateUtils";
+import PaginationControls from "./table/PaginationControls";
 
 const ProblemTable = ({
   problems,
@@ -17,6 +18,8 @@ const ProblemTable = ({
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalError, setModalError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const problemsPerPage = 30;
 
   const handleAddProblem = (newProblem) => {
     try {
@@ -98,6 +101,20 @@ const ProblemTable = ({
     return categoryMatch && difficultyMatch && filterIsDueToday;
   });
 
+  const totalPages = Math.ceil(filteredProblems.length / problemsPerPage);
+  
+  const currentProblems = useMemo(() => {
+    const start = (currentPage - 1) * problemsPerPage;
+    const end = start + problemsPerPage;
+    return filteredProblems.slice(start, end);
+  }, [currentPage, filteredProblems, problemsPerPage, totalPages]);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  const prevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+  const firstPage = () => setCurrentPage(1);
+  const lastPage = () => setCurrentPage(totalPages);
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
       <div className="flex justify-between items-center mb-4">
@@ -110,6 +127,21 @@ const ProblemTable = ({
         </button>
       </div>
 
+      {filteredProblems.length > problemsPerPage && (
+        <div className="mb-4">
+          <PaginationControls
+            currentPage={currentPage}
+            totalItems={filteredProblems.length}
+            itemsPerPage={problemsPerPage}
+            totalPages={totalPages}
+            onPageChange={paginate}
+            onFirstPage={firstPage}
+            onLastPage={lastPage}
+            onNextPage={nextPage}
+            onPrevPage={prevPage}
+          />
+        </div>
+      )}
 
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600 table-fixed w-full">
@@ -136,7 +168,7 @@ const ProblemTable = ({
             </tr>
           </thead>
           <tbody className="bg-white dark:bg-gray-400 divide-y divide-gray-200 dark:divide-gray-600">
-            {filteredProblems.map((problem) => {
+            {currentProblems.map((problem) => {
               return (
                 <ProblemRow
                   key={problem.id}
@@ -150,6 +182,22 @@ const ProblemTable = ({
           </tbody>
         </table>
       </div>
+
+      {filteredProblems.length > problemsPerPage && (
+        <div className="mt-4">
+          <PaginationControls
+            currentPage={currentPage}
+            totalItems={filteredProblems.length}
+            itemsPerPage={problemsPerPage}
+            totalPages={totalPages}
+            onPageChange={paginate}
+            onFirstPage={firstPage}
+            onLastPage={lastPage}
+            onNextPage={nextPage}
+            onPrevPage={prevPage}
+          />
+        </div>
+      )}
       <AddProblemModal
         isOpen={isModalOpen}
         onClose={() => {
