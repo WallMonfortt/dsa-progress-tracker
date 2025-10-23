@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DSAProgressTracker, Patterns, InterviewRoadmap } from "./pages";
-import { Navbar } from "./components";
+import { Navbar, Footer } from "./components";
 
 const App = () => {
   return (
@@ -11,6 +11,7 @@ const App = () => {
         <Route path="/patterns" element={<Patterns />} />
         <Route path="/roadmap" element={<InterviewRoadmap />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
