@@ -4,3 +4,4 @@ export { default as StatsCard } from "./StatsCard";
 export { default as ProblemTable } from "./ProblemTable";
 export { default as ExportImportControls } from "./ExportImportControls";
 export { default as Footer } from "./Footer";
+export { default as StartNowBtn } from "./buttons/StartNowBtn";

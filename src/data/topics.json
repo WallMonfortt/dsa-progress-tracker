@@ -1,0 +1,98 @@
+[
+    {
+      "title": "Fundamentos de Programación",
+      "description": "Aprende los fundamentos de programación",
+      "icon": "Code",
+      "url": "/building",
+      "color": "bg-blue-100 dark:bg-blue-900",
+      "textColor": "text-blue-600 dark:text-blue-300"
+    },
+    {
+      "title": "Estructuras de Datos y Algoritmos",
+      "description": "Domina los conceptos fundamentales de DSA",
+      "icon": "Cpu",
+      "url": "/DSAtracker",
+      "color": "bg-green-100 dark:bg-green-900",
+      "textColor": "text-green-600 dark:text-green-300"
+    },
+    {
+      "title": "Clean Code principiantes",
+      "description": "Aprende a escribir código limpio",
+      "icon": "Code",
+      "url": "/building",
+      "color": "bg-blue-100 dark:bg-blue-900",
+      "textColor": "text-blue-600 dark:text-blue-300"
+    },
+    {
+      "title": "Principios SOLID",
+      "description": "Aprende los principios SOLID",
+      "icon": "Code",
+      "url": "/building",
+      "color": "bg-blue-100 dark:bg-blue-900",
+      "textColor": "text-blue-600 dark:text-blue-300"
+    },
+    {
+      "title": "Paradigmas de Programación",
+      "description": "Aprende los paradigmas de programación",
+      "icon": "Code",
+      "url": "/building",
+      "color": "bg-blue-100 dark:bg-blue-900",
+      "textColor": "text-blue-600 dark:text-blue-300"
+    },
+    {
+      "title": "Git",
+      "description": "Aprende Git",
+      "icon": "Code",
+      "url": "/building",
+      "color": "bg-blue-100 dark:bg-blue-900",
+      "textColor": "text-blue-600 dark:text-blue-300"
+    },
+    {
+      "title": "Testing",
+      "description": "Aprende Testing",
+      "icon": "Code",
+      "url": "/building",
+      "color": "bg-blue-100 dark:bg-blue-900",
+      "textColor": "text-blue-600 dark:text-blue-300"
+    },
+    {
+      "title": "Entrevistas Técnicas",
+      "description": "Preparación para entrevistas técnicas y resolución de problemas",
+      "icon": "Code",
+      "url": "/building",
+      "color": "bg-blue-100 dark:bg-blue-900",
+      "textColor": "text-blue-600 dark:text-blue-300"
+    },
+    {
+      "title": "Desarrollo Web Frontend",
+      "description": "Aprende React, TypeScript y las mejores prácticas",
+      "icon": "Globe",
+      "url": "/building",
+      "color": "bg-purple-100 dark:bg-purple-900",
+      "textColor": "text-purple-600 dark:text-purple-300"
+    },
+    {
+      "title": "Backend y APIs",
+      "description": "Node.js, Express, bases de datos y diseño de APIs",
+      "icon": "Server",
+      "url": "/building",
+      "color": "bg-yellow-100 dark:bg-yellow-900",
+      "textColor": "text-yellow-600 dark:text-yellow-300"
+    },
+    {
+      "title": "Bases de Datos",
+      "description": "SQL, NoSQL y modelado de datos",
+      "icon": "Database",
+      "url": "/building",
+      "color": "bg-red-100 dark:bg-red-900",
+      "textColor": "text-red-600 dark:text-red-300"
+    },
+    {
+      "title": "DevOps y Cloud",
+      "description": "Docker, Kubernetes, AWS/GCP/Azure",
+      "icon": "Cloud",
+      "url": "/building",
+      "color": "bg-indigo-100 dark:bg-indigo-900",
+      "textColor": "text-indigo-600 dark:text-indigo-300"
+    }
+]
