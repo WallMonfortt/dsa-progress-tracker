@@ -73,10 +73,10 @@ Ensure you have Node.js installed on your machine.
 
 ## 🗺️ Roadmap
 
-* [ ] Implement per-problem note-taking feature.
-* [ ] Add a practice timer.
-* [ ] Develop a custom tagging system.
-* [ ] See the open [Issues](https://github.com/WallMonfortt/dsa-progress-tracker/issues) for a full list of proposed features (and known issues). ---
+* [ ] Move to Complete SDE guide.
+* [ ] Create guides for each topic.
+* [ ] Implement internationalization.
+* [ ] See or add [Issues](https://github.com/WallMonfortt/dsa-progress-tracker/issues) for a full list of proposed features (and known issues). ---
 
 ## 📄 License
 
