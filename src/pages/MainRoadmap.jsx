@@ -58,7 +58,7 @@ const MainRoadmap = () => {
                     to={topic.url}
                     className={`${topic.color} ${topic.textColor} rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 transform hover:-translate-y-1 flex flex-col h-full`}
                   >
-                    {/* Sección superior: Icono y Título */}
+                    {/* Icon and Title */}
                     <div className="flex items-center mb-4 min-h-[72px]">
                       <div className={`p-2 rounded-lg ${topic.color} ${topic.textColor} mr-4`}>
                         {icons[topic.title]}
@@ -66,16 +66,16 @@ const MainRoadmap = () => {
                       <h3 className="text-xl font-semibold leading-tight">{topic.title}</h3>
                     </div>
 
-                    {/* Sección media: Descripción */}
+                    {/* Description */}
                     <p className="text-gray-700 dark:text-gray-300 mb-6 flex-grow">
                       {topic.description}
                     </p>
 
-                    {/* Sección inferior: Barra de progreso */}
+                    {/* Progress Bar */}
                     <div className="mt-auto">
-                      <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                      <div className="w-full bg-gray-600 dark:bg-gray-400 rounded-full h-2.5 mb-2">
                         <div
-                          className="bg-blue-600 h-2.5 rounded-full"
+                          className="bg-blue-600 dark:bg-blue-400 h-2.5 rounded-full"
                           style={{ width: '0%' }}
                         ></div>
                       </div>
@@ -84,8 +84,8 @@ const MainRoadmap = () => {
                       </div>
                     </div>
                   </Link>
-
-                  {/* Flecha entre elementos (excepto el último) */}
+                  
+                  {/* Flecha  */}
                   {index < topics.length - 1 && (
                     <div className="hidden sm:flex items-center justify-center absolute -right-6 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-600">
                       <ChevronRight className="w-8 h-8" />
