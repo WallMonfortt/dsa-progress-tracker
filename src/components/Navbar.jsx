@@ -20,9 +20,15 @@ const Navbar = () => (
             About
           </Link>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
+          <Link to="/tools" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+            Tools
+          </Link>
+          <div className="flex items-center">
           <ThemeToggleButton />
         </div>
+        </div>
+        
       </div>
     </div>
   </nav>
