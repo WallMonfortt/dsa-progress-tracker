@@ -1,74 +1,95 @@
 [
-    {
-      "title": "Fundamentos de Programación",
-      "description": "Aprende los fundamentos de programación",
-      "icon": "Code",
-      "url": "/building"
-    },
-    {
-      "title": "Estructuras de Datos y Algoritmos",
-      "description": "Domina los conceptos fundamentales de DSA",
-      "icon": "Cpu",
-      "url": "/DSAtracker"
-    },
-    {
-      "title": "Clean Code principiantes",
-      "description": "Aprende a escribir código limpio",
-      "icon": "Code",
-      "url": "/building"
-    },
-    {
-      "title": "Principios SOLID",
-      "description": "Aprende los principios SOLID",
-      "icon": "Code",
-      "url": "/building"
-    },
-    {
-      "title": "Paradigmas de Programación",
-      "description": "Aprende los paradigmas de programación",
-      "icon": "Code",
-      "url": "/building"
-    },
-    {
-      "title": "Git",
-      "description": "Aprende Git",
-      "icon": "Code",
-      "url": "/building"
-    },
-    {
-      "title": "Testing",
-      "description": "Aprende Testing",
-      "icon": "Code",
-      "url": "/building"
-    },
-    {
-      "title": "Entrevistas Técnicas",
-      "description": "Preparación para entrevistas técnicas y resolución de problemas",
-      "icon": "Code",
-      "url": "/building"
-    },
-    {
-      "title": "Desarrollo Web Frontend",
-      "description": "Aprende React, TypeScript y las mejores prácticas",
-      "icon": "Globe",
-      "url": "/building"
-    },
-    {
-      "title": "Backend y APIs",
-      "description": "Node.js, Express, bases de datos y diseño de APIs",
-      "icon": "Server",
-      "url": "/building"
-    },
-    {
-      "title": "Bases de Datos",
-      "description": "SQL, NoSQL y modelado de datos",
-      "icon": "Database",
-      "url": "/building"
-    },
-    {
-      "title": "DevOps y Cloud",
-      "description": "Docker, Kubernetes, AWS/GCP/Azure",
-      "icon": "Cloud",
-      "url": "/building"
-    }
+  {
+    "title": "Fundamentos de Programación",
+    "description": "Aprende los fundamentos de programación",
+    "icon": "Code",
+    "url": "/fundamentos",
+    "subtopics": [
+      {
+        "title": "Introducción a la Programación",
+        "resources": [
+          {
+            "type": "video",
+            "title": "¿Qué es programar?",
+            "url": "#",
+            "duration": "10:45",
+            "completed": false
+          },
+          {
+            "type": "article",
+            "title": "Primeros pasos en programación",
+            "url": "#",
+            "estimatedReadTime": 8,
+            "completed": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Estructuras de Datos y Algoritmos",
+    "description": "Domina los conceptos fundamentales de DSA",
+    "icon": "Cpu",
+    "url": "/DSAtracker"
+  },
+  {
+    "title": "Clean Code principiantes",
+    "description": "Aprende a escribir código limpio",
+    "icon": "Code",
+    "url": "/building"
+  },
+  {
+    "title": "Principios SOLID",
+    "description": "Aprende los principios SOLID",
+    "icon": "Code",
+    "url": "/building"
+  },
+  {
+    "title": "Paradigmas de Programación",
+    "description": "Aprende los paradigmas de programación",
+    "icon": "Code",
+    "url": "/building"
+  },
+  {
+    "title": "Git",
+    "description": "Aprende Git",
+    "icon": "Code",
+    "url": "/building"
+  },
+  {
+    "title": "Testing",
+    "description": "Aprende Testing",
+    "icon": "Code",
+    "url": "/building"
+  },
+  {
+    "title": "Entrevistas Técnicas",
+    "description": "Preparación para entrevistas técnicas y resolución de problemas",
+    "icon": "Code",
+    "url": "/building"
+  },
+  {
+    "title": "Desarrollo Web Frontend",
+    "description": "Aprende React, TypeScript y las mejores prácticas",
+    "icon": "Globe",
+    "url": "/building"
+  },
+  {
+    "title": "Backend y APIs",
+    "description": "Node.js, Express, bases de datos y diseño de APIs",
+    "icon": "Server",
+    "url": "/building"
+  },
+  {
+    "title": "Bases de Datos",
+    "description": "SQL, NoSQL y modelado de datos",
+    "icon": "Database",
+    "url": "/building"
+  },
+  {
+    "title": "DevOps y Cloud",
+    "description": "Docker, Kubernetes, AWS/GCP/Azure",
+    "icon": "Cloud",
+    "url": "/building"
+  }
 ]
