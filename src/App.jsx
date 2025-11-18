@@ -19,20 +19,20 @@ const App = () => {
       <Routes>
         {/* main routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/mainRoadmap" element={<MainRoadmap />} />
-        <Route path="/patterns" element={<Patterns />} />
-        <Route path="/tools" element={<ToolsList />} />
+        <Route path="/ruta-aprendizaje" element={<MainRoadmap />} />
+        <Route path="/patrones" element={<Patterns />} />
+        <Route path="/herramientas" element={<ToolsList />} />
       
-        {/* course routes */}
+        {/* courses routes */}
         <Route path="/fundamentos" element={<Fundamentos />} />
 
         {/* tools routes */}
-        <Route path="/tools/dsa-progress" element={<DSAProgressTracker />} />
+        <Route path="/herramientas/seguimiento-dsa" element={<DSAProgressTracker />} />
 
         {/* pending routes */}
-        <Route path="/building" element={<BuildingPage />} />
+        <Route path="/en-construccion" element={<BuildingPage />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/roadmap" element={<InterviewRoadmap />} />
+        <Route path="/ruta-entrevistas" element={<InterviewRoadmap />} />
       </Routes>
       <Footer />
     </BrowserRouter>
@@ -40,3 +40,10 @@ const App = () => {
 };
 
 export default App;
+
+
+//TODO: Refactor project structure
+//TODO: Add unit tests for all components
+//TODO: Define and extract common and reusable components into a shared library
+//TODO: Extract color palette and theme into a shared library
+//TODO: Create fundamentos topic and translate all the page to spanish

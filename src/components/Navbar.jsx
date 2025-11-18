@@ -10,19 +10,19 @@ const Navbar = () => (
         <Link to="/" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
           <Home className="w-6 h-6" />
         </Link>
-          <Link to="/mainRoadmap" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-            Roadmap
+          <Link to="/ruta-aprendizaje" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+            Rutas
           </Link>
-          <Link to="/building" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-            Cheetsheets
+          <Link to="/en-construccion" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+            Acordeones
           </Link>
-          <Link to="/building" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-            About
+          <Link to="/en-construccion" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+            Acerca de
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          <Link to="/tools" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-            Tools
+          <Link to="/herramientas" className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+            Herramientas
           </Link>
           <div className="flex items-center">
           <ThemeToggleButton />

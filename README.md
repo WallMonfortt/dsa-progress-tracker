@@ -1,131 +1,131 @@
 # DSA Progress Tracker 🚀
 
-A personalized dashboard to supercharge my Data Structures & Algorithms practice for technical interviews.
+Un panel personalizado para potenciar tu práctica de Estructuras de Datos y Algoritmos para entrevistas técnicas.
 
 ---
 
-## 🔥 About The Project
+## 🔥 Acerca del Proyecto
 
-This is my personal version of a tool designed to track progress on coding platforms like NeetCode and LeetCode. While it began as a fork, it is now evolving to include specific features tailored to my study routine and interview preparation goals.
+Esta es mi versión personal de una herramienta diseñada para rastrear el progreso en plataformas de programación como NeetCode y LeetCode. Aunque comenzó como un fork, ahora está evolucionando para incluir características específicas adaptadas a mi rutina de estudio y objetivos de preparación para entrevistas.
 
-The objective is to create an all-in-one tool that not only logs solved problems but also facilitates active recall and helps identify areas for improvement.
+El objetivo es crear una herramienta todo-en-uno que no solo registre problemas resueltos, sino que también facilite el recuerdo activo y ayude a identificar áreas de mejora.
 
-### 🛠️ Built With
+### 🛠️ Construido Con
 
-* [Vite](https://vitejs.dev/) - Build tool and development server
-* [React](https://reactjs.org/) - UI library
-* [React Router](https://reactrouter.com/) - Routing
-* [Tailwind CSS](https://tailwindcss.com/) - Styling
-* [Lucide React](https://lucide.dev/) - Icons
-
----
-
-## ✨ Key Features
-
-* ✅ **Visual Tracking:** Log completed problems across various categories (Arrays, Graphs, DP, etc.).
-* ✅ **Spaced Repetition System:** Automatic scheduling of review dates (3, 5, 9, 17, 33, 65 days) to optimize long-term retention.
-* ✅ **Automatic Sync:** Progress is saved automatically to the browser's local storage.
-* ✅ **Custom Problems:** Add your own problems to track beyond the NeetCode 150 list.
-* ✅ **Export/Import:** Backup and restore your progress data.
-* ✅ **Dark Mode:** Full dark mode support for comfortable late-night coding sessions.
-* ✅ **Progress Statistics:** Track your progress with detailed stats (total solved, by difficulty, due today).
-* ✅ **Filtering & Search:** Filter by category, difficulty, or search by name/ID.
-* ✅ **Multiple Roadmaps:** Access to different learning paths (Fundamentos, Patterns, Interview Roadmap).
-* ✏️ **Note-Taking System (Planned):** A dedicated section for each problem to add personal notes, time/space complexity (Big O), and solution approaches.
-* ⏱️ **Practice Timer (Planned):** A feature to time problem-solving sessions, simulating real interview conditions.
-* 🏷️ **Custom Tags (Planned):** A system to tag problems with labels like "Review in 7 days," "Tricky," or "Favorite."
+* [Vite](https://vitejs.dev/) - Herramienta de construcción y servidor de desarrollo
+* [React](https://reactjs.org/) - Biblioteca de UI
+* [React Router](https://reactrouter.com/) - Enrutamiento
+* [Tailwind CSS](https://tailwindcss.com/) - Estilos
+* [Lucide React](https://lucide.dev/) - Iconos
 
 ---
 
-## 🚀 Getting Started
+## ✨ Características Principales
 
-Follow these steps to get a local copy up and running.
+* ✅ **Seguimiento Visual:** Registra problemas completados en varias categorías (Arrays, Graphs, DP, etc.).
+* ✅ **Sistema de Repetición Espaciada:** Programación automática de fechas de revisión (3, 5, 9, 17, 33, 65 días) para optimizar la retención a largo plazo.
+* ✅ **Sincronización Automática:** El progreso se guarda automáticamente en el almacenamiento local del navegador.
+* ✅ **Problemas Personalizados:** Agrega tus propios problemas para rastrear más allá de la lista NeetCode 150.
+* ✅ **Exportar/Importar:** Respalda y restaura tus datos de progreso.
+* ✅ **Modo Oscuro:** Soporte completo de modo oscuro para sesiones de programación nocturnas cómodas.
+* ✅ **Estadísticas de Progreso:** Rastrea tu progreso con estadísticas detalladas (total resueltos, por dificultad, pendientes hoy).
+* ✅ **Filtrado y Búsqueda:** Filtra por categoría, dificultad o busca por nombre/ID.
+* ✅ **Múltiples Rutas de Aprendizaje:** Acceso a diferentes caminos de aprendizaje (Fundamentos, Patterns, Interview Roadmap).
+* ✏️ **Sistema de Notas (Planeado):** Una sección dedicada para cada problema para agregar notas personales, complejidad de tiempo/espacio (Big O), y enfoques de solución.
+* ⏱️ **Temporizador de Práctica (Planeado):** Una característica para cronometrar sesiones de resolución de problemas, simulando condiciones reales de entrevista.
+* 🏷️ **Etiquetas Personalizadas (Planeado):** Un sistema para etiquetar problemas con etiquetas como "Revisar en 7 días", "Complicado", o "Favorito".
 
-### Prerequisites
+---
 
-Ensure you have Node.js (v16 or higher) installed on your machine.
+## 🚀 Comenzando
 
-### Installation
+Sigue estos pasos para obtener una copia local funcionando.
 
-1.  Clone the repo
+### Prerrequisitos
+
+Asegúrate de tener Node.js (v16 o superior) instalado en tu máquina.
+
+### Instalación
+
+1.  Clona el repositorio
     ```sh
     git clone https://github.com/WallMonfortt/dsa-progress-tracker.git
     ```
-2.  Navigate to the project directory
+2.  Navega al directorio del proyecto
     ```sh
     cd dsa-progress-tracker
     ```
-3.  Install dependencies
+3.  Instala las dependencias
     ```sh
-    # Using npm
+    # Usando npm
     npm install
 
-    # Or using pnpm (recommended - faster and more efficient)
+    # O usando pnpm (recomendado - más rápido y eficiente)
     pnpm install
     ```
-4.  Start the development server
+4.  Inicia el servidor de desarrollo
     ```sh
-    # With npm
+    # Con npm
     npm run dev
 
-    # Or with pnpm
+    # O con pnpm
     pnpm dev
     ```
-5.  Open [http://localhost:5173](http://localhost:5173) in your browser to see the result!
+5.  Abre [http://localhost:5173](http://localhost:5173) en tu navegador para ver el resultado!
 
-### Available Scripts
+### Scripts Disponibles
 
-* `npm run dev` - Start development server
-* `npm run build` - Build for production
-* `npm run preview` - Preview production build
-* `npm run lint` - Run ESLint
+* `npm run dev` - Inicia el servidor de desarrollo
+* `npm run build` - Construye para producción
+* `npm run preview` - Previsualiza la construcción de producción
+* `npm run lint` - Ejecuta ESLint
 
 ---
 
-## 🗺️ Roadmap
+## 🗺️ Hoja de Ruta
 
-* [x] Move to Complete SDE guide
-* [x] Add tools section
-* [x] Implement spaced repetition system
-* [x] Add custom problems functionality
-* [x] Export/Import data feature
-* [ ] Complete Fundamentos page content
-* [ ] Translate entire application to Spanish
-* [ ] Create guides for each topic
-* [ ] Implement note-taking system for problems
-* [ ] Add practice timer feature
-* [ ] Add custom tags system
-* [ ] Refactor project structure
-* [ ] Add unit tests for components
-* [ ] Extract reusable components to shared library
-* [ ] Extract color palette and theme to shared library
-* [ ] Implement internationalization (i18n)
-* [ ] See or add [Issues](https://github.com/WallMonfortt/dsa-progress-tracker/issues) for a full list of proposed features (and known issues).
+* [x] Migrar a guía completa de SDE
+* [x] Agregar sección de herramientas
+* [x] Implementar sistema de repetición espaciada
+* [x] Agregar funcionalidad de problemas personalizados
+* [x] Funcionalidad de Exportar/Importar datos
+* [x] Traducir toda la aplicación al español
+* [ ] Completar contenido de la página Fundamentos
+* [ ] Crear guías para cada tema
+* [ ] Implementar sistema de notas para problemas
+* [ ] Agregar funcionalidad de temporizador de práctica
+* [ ] Agregar sistema de etiquetas personalizadas
+* [ ] Refactorizar estructura del proyecto
+* [ ] Agregar pruebas unitarias para componentes
+* [ ] Extraer componentes reutilizables a biblioteca compartida
+* [ ] Extraer paleta de colores y tema a biblioteca compartida
+* [ ] Implementar internacionalización (i18n)
+* [ ] Ver o agregar [Issues](https://github.com/WallMonfortt/dsa-progress-tracker/issues) para una lista completa de características propuestas (y problemas conocidos).
 
-## 📁 Project Structure
+## 📁 Estructura del Proyecto
 
 ```
 src/
-├── components/       # Reusable React components
-│   ├── buttons/     # Button components
-│   ├── sections/    # Section components
-│   └── table/       # Table-related components
-├── contexts/        # React contexts (Theme)
-├── data/            # JSON data files (problems, topics, etc.)
-├── hooks/           # Custom React hooks
-├── pages/           # Page components (routes)
-├── utils/           # Utility functions
-└── assets/          # Static assets (icons, images)
+├── components/       # Componentes React reutilizables
+│   ├── buttons/     # Componentes de botones
+│   ├── sections/    # Componentes de secciones
+│   └── table/       # Componentes relacionados con tablas
+├── contexts/        # Contextos de React (Theme)
+├── data/            # Archivos JSON de datos (problemas, temas, etc.)
+├── hooks/           # Hooks personalizados de React
+├── pages/           # Componentes de página (rutas)
+├── utils/           # Funciones de utilidad
+└── assets/          # Recursos estáticos (iconos, imágenes)
 ```
 
-## 📄 License
+## 📄 Licencia
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distribuido bajo la Licencia MIT. Ver `LICENSE.txt` para más información.
 
 ---
 
-## 🙏 Acknowledgements (Important!)
+## 🙏 Agradecimientos (¡Importante!)
 
-I want to extend a special thanks to **Javlonbek Kosimov ([javydevx](https://github.com/javydevx))** for his incredible work in creating the original project, [neetcode-tracker](https://github.com/javydevx/neetcode-tracker).
+Quiero extender un agradecimiento especial a **Javlonbek Kosimov ([javydevx](https://github.com/javydevx))** por su increíble trabajo al crear el proyecto original, [neetcode-tracker](https://github.com/javydevx/neetcode-tracker).
 
-This project would not be possible without his foundational codebase, which served as the primary inspiration and starting point for this new version. If you find this tool helpful, please consider visiting the original repository to give it a star. ⭐
+Este proyecto no sería posible sin su código base fundamental, que sirvió como la inspiración principal y punto de partida para esta nueva versión. Si encuentras útil esta herramienta, por favor considera visitar el repositorio original para darle una estrella. ⭐

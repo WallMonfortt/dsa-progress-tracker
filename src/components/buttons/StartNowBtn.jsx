@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const StartNowBtn = () => {
     const navigate = useNavigate();
     
     const handleClick = () => {
         window.scrollTo(0, 0);
-        navigate('/mainRoadmap');
+        navigate('/ruta-aprendizaje');
     };
 
     return (

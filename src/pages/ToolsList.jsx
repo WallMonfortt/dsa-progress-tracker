@@ -4,15 +4,15 @@ import { Code, LayoutDashboard, BookOpen, BarChart2 } from 'lucide-react';
 const tools = [
   {
     id: 'dsa-progress',
-    title: 'DSA Progress Tracker',
+    title: 'DSA Monitor',
     description: 'Sigue tu progreso en la resolución de problemas de estructuras de datos y algoritmos',
     icon: <Code className="w-6 h-6 text-blue-500" />,
-    path: '/tools/dsa-progress',
+    path: '/herramientas/seguimiento-dsa',
     comingSoon: false
   },
   {
     id: 'study-planner',
-    title: 'Study Planner',
+    title: 'Planificador de Estudio',
     description: 'Planifica tus sesiones de estudio y haz un seguimiento de tu progreso',
     icon: <BookOpen className="w-6 h-6 text-green-500" />,
     path: '#',
@@ -20,7 +20,7 @@ const tools = [
   },
   {
     id: 'code-challenges',
-    title: 'Code Challenges',
+    title: 'Desafíos de Código',
     description: 'Desafíos de programación para practicar y mejorar tus habilidades',
     icon: <LayoutDashboard className="w-6 h-6 text-purple-500" />,
     path: '#',
@@ -28,7 +28,7 @@ const tools = [
   },
   {
     id: 'progress-analytics',
-    title: 'Progress Analytics',
+    title: 'Estadísticas de Progreso',
     description: 'Visualiza tus estadísticas y métricas de aprendizaje',
     icon: <BarChart2 className="w-6 h-6 text-yellow-500" />,
     path: '#',

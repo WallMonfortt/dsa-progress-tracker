@@ -28,7 +28,7 @@ const AddProblemModal = ({ isOpen, onClose, onAdd, error, onError }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name) {
-      onError('Problem name is required');
+      onError('El nombre del problema es requerido');
       return;
     }
 
@@ -53,7 +53,7 @@ const AddProblemModal = ({ isOpen, onClose, onAdd, error, onError }) => {
       onError('');
       onClose();
     } catch (err) {
-      onError('❌ An error occurred while adding the problem');
+      onError('❌ Ocurrió un error al agregar el problema');
       console.error('Error:', err);
     }
   };
@@ -70,10 +70,10 @@ const AddProblemModal = ({ isOpen, onClose, onAdd, error, onError }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={handleBackdropClick}>
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md" onClick={e => e.stopPropagation()}>
-        <h2 className="text-xl dark:text-white font-semibold mb-4">Add New Problem</h2>
+        <h2 className="text-xl dark:text-white font-semibold mb-4">Agregar Nuevo Problema</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block dark:text-gray-200 text-sm font-medium mb-1">Problem Name *</label>
+            <label className="block dark:text-gray-200 text-sm font-medium mb-1">Nombre del Problema *</label>
             <input
               type="text"
               value={formData.name}
@@ -83,18 +83,18 @@ const AddProblemModal = ({ isOpen, onClose, onAdd, error, onError }) => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 dark:text-white">Problem ID</label>
+            <label className="block text-sm font-medium mb-1 dark:text-white">ID del Problema</label>
             <input
               type="text"
               value={formData.id}
               onChange={(e) => setFormData({...formData, id: e.target.value})}
               className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
-              placeholder="Leave empty to auto-generate"
+              placeholder="Dejar vacío para auto-generar"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1 dark:text-white">Category</label>
+              <label className="block text-sm font-medium mb-1 dark:text-white">Categoría</label>
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({...formData, category: e.target.value})}
@@ -108,24 +108,24 @@ const AddProblemModal = ({ isOpen, onClose, onAdd, error, onError }) => {
                 <option value="Sorting">Sorting</option>
                 <option value="Greedy">Greedy</option>
                 <option value="Searching">Searching</option>
-                <option value="Other">Other</option>
+                <option value="Other">Otro</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1 dark:text-white">Difficulty</label>
+              <label className="block text-sm font-medium mb-1 dark:text-white">Dificultad</label>
               <select
                 value={formData.difficulty}
                 onChange={(e) => setFormData({...formData, difficulty: e.target.value})}
                 className="w-full p-2 border rounded dark:bg-gray-700 dark:text-gray-200"
               >
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
+                <option value="Easy">Fácil</option>
+                <option value="Medium">Medio</option>
+                <option value="Hard">Difícil</option>
               </select>
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 dark:text-white">URL (optional)</label>
+            <label className="block text-sm font-medium mb-1 dark:text-white">URL (opcional)</label>
             <input
               type="url"
               value={formData.url}
@@ -140,13 +140,13 @@ const AddProblemModal = ({ isOpen, onClose, onAdd, error, onError }) => {
               onClick={onClose}
               className="px-4 py-2 text-gray-700 dark:text-gray-200"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
-              Add Problem
+              Agregar Problema
             </button>
           </div>
         </form>

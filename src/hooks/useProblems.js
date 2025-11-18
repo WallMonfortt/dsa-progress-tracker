@@ -8,14 +8,14 @@ const useProblems = () => {
 
     const allProblems = [...problems, ...customProblems];
     const categories = [
-        "All",
+        "Todos",
         ...Array.from(new Set([
             ...problems.map((p) => p.category),
             ...customProblems.map((p) => p.category)
         ])).filter(Boolean),
     ];
 
-    const difficulties = ["All", "Easy", "Medium", "Hard"];
+    const difficulties = ["Todos", "Fácil", "Medio", "Difícil"];
 
     const today = getToday();
 

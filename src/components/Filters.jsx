@@ -15,12 +15,12 @@ const Filters = ({
   <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6 transition-colors">
     <div className="flex items-center gap-2 mb-4">
       <Filter size={20} className="text-gray-600" />
-      <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Filters</h2>
+      <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Filtros</h2>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-center">
       <div className="md:col-span-2">
         <label htmlFor="search-problems" className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-          Search Problems
+          Buscar Problemas
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -29,7 +29,7 @@ const Filters = ({
           <input
             id="search-problems"
             type="text"
-            placeholder="Search by problem name or ID..."
+            placeholder="Buscar por nombre o ID del problema..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 dark:bg-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
@@ -37,7 +37,7 @@ const Filters = ({
             <button
               onClick={() => setSearchQuery('')}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
-              title="Clear search"
+              title="Limpiar búsqueda"
             >
               <X size={18} />
             </button>
@@ -46,11 +46,11 @@ const Filters = ({
       </div>
       <div>
         <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-          Category
+          Categoría
         </label>
         <select
           id="category"
-          title="Category"
+          title="Categoría"
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
@@ -64,11 +64,11 @@ const Filters = ({
       </div>
       <div>
         <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-          Difficulty
+          Dificultad
         </label>
         <select
           id="difficulty"
-          title="Difficulty"
+          title="Dificultad"
           value={filterDifficulty}
           onChange={(e) => setFilterDifficulty(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
@@ -84,13 +84,13 @@ const Filters = ({
         <input
           id="due-today-checkbox"
           type="checkbox"
-          title="Show Only Due Today"
+          title="Mostrar Solo Pendientes Hoy"
           checked={showOnlyDueToday}
           onChange={() => setShowOnlyDueToday((prev) => !prev)}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white dark:bg-gray-600 dark:text-white"
         />
         <label htmlFor="due-today-checkbox" className="text-sm font-medium text-gray-700 dark:text-white">
-          Show pending problems
+          Mostrar problemas pendientes
         </label>
       </div>
     </div>

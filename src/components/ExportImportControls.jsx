@@ -47,10 +47,10 @@ const ExportImportControls = ({
           localStorage.setItem('interview-progress', JSON.stringify(interviewProgress));
         }
 
-        alert("Data imported successfully!");
+        alert("¡Datos importados exitosamente!");
       } catch (error) {
         console.error('Error importing data:', error);
-        alert("Error importing data. Please verify the format.");
+        alert("Error al importar datos. Por favor verifica el formato.");
       }
     };
     reader.readAsText(file);
@@ -58,7 +58,7 @@ const ExportImportControls = ({
   };
 
   const clearAllData = () => {
-    if (window.confirm("Are you sure you want to clear all progress and custom problems?")) {
+    if (window.confirm("¿Estás seguro de que quieres eliminar todo el progreso y los problemas personalizados?")) {
       setProgress({});
       setCustomProblems([]);
       localStorage.removeItem('neetcode-progress');
@@ -73,11 +73,11 @@ const ExportImportControls = ({
         onClick={exportData}
         className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md transition-colors"
       >
-        <Download size={16} /> Export
+        <Download size={16} /> Exportar
       </button>
 
       <label className="flex items-center gap-1 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors cursor-pointer">
-        <Upload size={16} /> Import
+        <Upload size={16} /> Importar
         <input
           type="file"
           accept=".json"
@@ -90,7 +90,7 @@ const ExportImportControls = ({
         onClick={clearAllData}
         className="flex items-center gap-1 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm rounded-md transition-colors"
       >
-        <Trash2 size={16} /> Clear All
+        <Trash2 size={16} /> Limpiar Todo
       </button>
     </div>
   );
