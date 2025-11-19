@@ -90,6 +90,7 @@ Asegúrate de tener Node.js (v16 o superior) instalado en tu máquina.
 * [x] Agregar funcionalidad de problemas personalizados
 * [x] Funcionalidad de Exportar/Importar datos
 * [x] Traducir toda la aplicación al español
+* [ ] Integracion con excalidraw
 * [ ] Completar contenido de la página Fundamentos
 * [ ] Crear guías para cada tema
 * [ ] Implementar sistema de notas para problemas

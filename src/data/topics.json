@@ -6,9 +6,11 @@
     "url": "/fundamentos",
     "subtopics": [
       {
+        "id": "intro-programming",
         "title": "Introducción a la Programación",
         "resources": [
           {
+            "id": "what-is-programming",
             "type": "video",
             "title": "¿Qué es programar?",
             "url": "#",
@@ -16,6 +18,7 @@
             "completed": false
           },
           {
+            "id": "first-steps",
             "type": "article",
             "title": "Primeros pasos en programación",
             "url": "#",
@@ -23,6 +26,26 @@
             "completed": false
           }
         ]
+      },
+      {
+        "id": "variables-data-types",
+        "title": "Variables y Tipos de Datos",
+        "resources": []
+      },
+      {
+        "id": "control-structures",
+        "title": "Estructuras de Control",
+        "resources": []
+      },
+      {
+        "id": "functions",
+        "title": "Funciones",
+        "resources": []
+      },
+      {
+        "id": "data-structures-basic",
+        "title": "Estructuras de Datos Introducción",
+        "resources": []
       }
     ]
   },

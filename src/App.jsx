@@ -43,6 +43,8 @@ export default App;
 
 
 //TODO: Refactor project structure
+// Mejorar organización de carpetas
+// Agregar TypeScript (opcional pero recomendado)
 //TODO: Add unit tests for all components
 //TODO: Define and extract common and reusable components into a shared library
 //TODO: Extract color palette and theme into a shared library

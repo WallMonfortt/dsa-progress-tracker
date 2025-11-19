@@ -178,7 +178,6 @@ const ProblemTable = ({
                   problem={problem}
                   progress={progress}
                   toggleComplete={toggleComplete}
-                  calculateNextReviews={calculateNextReviews}
                 />
               );
             })}
