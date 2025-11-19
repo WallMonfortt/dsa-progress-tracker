@@ -2,11 +2,11 @@ import { useState } from "react";
 import { ExternalLink, Map, Info, ChevronDown } from "lucide-react";
 import {
   Filters,
-  StatsCard,
   ProblemTable,
   ExportImportControls,
-} from "../components";
-import { Explanation } from "../components/sections/Explanation";
+} from "../components/dsa-tracker";
+import { StatsCard } from "../components/ui";
+import { Explanation } from "../components/sections";
 import useProblems from "../hooks/useProblems";
 
 const DSAProgressTracker = () => {
@@ -24,8 +24,8 @@ const DSAProgressTracker = () => {
     isProblemDue 
   } = useProblems();
 
-  const [filterCategory, setFilterCategory] = useState("All");
-  const [filterDifficulty, setFilterDifficulty] = useState("All");
+  const [filterCategory, setFilterCategory] = useState("Todos");
+  const [filterDifficulty, setFilterDifficulty] = useState("Todos");
   const [showOnlyDueToday, setShowOnlyDueToday] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,10 +37,10 @@ const DSAProgressTracker = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-gray-800 mb-2 dark:text-white">
-                DSA progress tracker - NeetCode 150
+                Seguimiento de progreso DSA - NeetCode 150
               </h1>
               <p className="text-gray-600 dark:text-gray-300">
-                Track your progress with spaced repetition
+                Rastrea tu progreso con repetición espaciada
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
@@ -49,10 +49,10 @@ const DSAProgressTracker = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg  hover:bg-orange-700 transition-colors"
-                title="View the official NeetCode roadmap"
+                title="Ver el roadmap oficial de NeetCode"
               >
                 <Map size={16} />
-                Official Roadmap
+                Roadmap Oficial
                 <ExternalLink size={14} />
               </a>
             </div>
@@ -65,7 +65,7 @@ const DSAProgressTracker = () => {
             >
               <span className="flex items-center gap-1">
                 <Info size={16} />
-                {showExplanation ? "Hide" : "Show"} Spaced Repetition Info
+                {showExplanation ? "Ocultar" : "Mostrar"} Información de Repetición Espaciada
               </span>
               <ChevronDown 
                 size={16} 
@@ -84,15 +84,15 @@ const DSAProgressTracker = () => {
             <StatsCard
               color="blue"
               value={`${stats.solved}/${stats.total}`}
-              label="Total Solved"
+              label="Total Resueltos"
             />
-            <StatsCard color="green" value={stats.easy} label="Easy" />
-            <StatsCard color="yellow" value={stats.medium} label="Medium" />
-            <StatsCard color="red" value={stats.hard} label="Hard" />
+            <StatsCard color="green" value={stats.easy} label="Fácil" />
+            <StatsCard color="yellow" value={stats.medium} label="Medio" />
+            <StatsCard color="red" value={stats.hard} label="Difícil" />
             <StatsCard
               color="purple"
               value={getDueProblems()}
-              label="Due Today"
+              label="Pendientes Hoy"
             />
           </div>
         </div>

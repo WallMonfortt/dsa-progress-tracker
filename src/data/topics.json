@@ -1,0 +1,118 @@
+[
+  {
+    "title": "Fundamentos de Programación",
+    "description": "Aprende los fundamentos de programación",
+    "icon": "Code",
+    "url": "/fundamentos",
+    "subtopics": [
+      {
+        "id": "intro-programming",
+        "title": "Introducción a la Programación",
+        "resources": [
+          {
+            "id": "what-is-programming",
+            "type": "video",
+            "title": "¿Qué es programar?",
+            "url": "#",
+            "duration": "10:45",
+            "completed": false
+          },
+          {
+            "id": "first-steps",
+            "type": "article",
+            "title": "Primeros pasos en programación",
+            "url": "#",
+            "estimatedReadTime": 8,
+            "completed": false
+          }
+        ]
+      },
+      {
+        "id": "variables-data-types",
+        "title": "Variables y Tipos de Datos",
+        "resources": []
+      },
+      {
+        "id": "control-structures",
+        "title": "Estructuras de Control",
+        "resources": []
+      },
+      {
+        "id": "functions",
+        "title": "Funciones",
+        "resources": []
+      },
+      {
+        "id": "data-structures-basic",
+        "title": "Estructuras de Datos Introducción",
+        "resources": []
+      }
+    ]
+  },
+  {
+    "title": "Estructuras de Datos y Algoritmos",
+    "description": "Domina los conceptos fundamentales de DSA",
+    "icon": "Cpu",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Clean Code principiantes",
+    "description": "Aprende a escribir código limpio",
+    "icon": "Code",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Principios SOLID",
+    "description": "Aprende los principios SOLID",
+    "icon": "Code",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Paradigmas de Programación",
+    "description": "Aprende los paradigmas de programación",
+    "icon": "Code",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Git",
+    "description": "Aprende Git",
+    "icon": "Code",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Testing",
+    "description": "Aprende Testing",
+    "icon": "Code",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Entrevistas Técnicas",
+    "description": "Preparación para entrevistas técnicas y resolución de problemas",
+    "icon": "Code",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Desarrollo Web Frontend",
+    "description": "Aprende React, TypeScript y las mejores prácticas",
+    "icon": "Globe",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Backend y APIs",
+    "description": "Node.js, Express, bases de datos y diseño de APIs",
+    "icon": "Server",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "Bases de Datos",
+    "description": "SQL, NoSQL y modelado de datos",
+    "icon": "Database",
+    "url": "/en-construccion"
+  },
+  {
+    "title": "DevOps y Cloud",
+    "description": "Docker, Kubernetes, AWS/GCP/Azure",
+    "icon": "Cloud",
+    "url": "/en-construccion"
+  }
+]

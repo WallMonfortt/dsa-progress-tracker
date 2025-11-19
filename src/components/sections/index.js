@@ -1,1 +1,1 @@
-export { default as Explanation } from "./Explanation";
+export { Explanation } from "./Explanation";

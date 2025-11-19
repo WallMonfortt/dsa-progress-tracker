@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
-import AddProblemModal from "./AddProblemModal";
+import { AddProblemModal } from "./modals";
 import { ProblemRow } from "./table";
-import { isDueToday, isOverdue, calculateNextReviews } from "../utils/dateUtils";
-import PaginationControls from "./table/PaginationControls";
+import { isDueToday, isOverdue, calculateNextReviews } from "../../utils/dateUtils";
+import { PaginationControls } from "./table";
 
 const ProblemTable = ({
   problems,
@@ -35,7 +35,7 @@ const ProblemTable = ({
       if (problemExists) {
         return {
           success: false,
-          message: '❌ A problem with this ID or name already exists'
+          message: '❌ Ya existe un problema con este ID o nombre'
         };
       }
 
@@ -60,7 +60,7 @@ const ProblemTable = ({
       console.error('Error adding problem:', error);
       return {
         success: false,
-        message: '❌ An error occurred while adding the problem'
+        message: '❌ Ocurrió un error al agregar el problema'
       };
     }
   };
@@ -82,8 +82,11 @@ const ProblemTable = ({
   }, [problems, customProblems]);
 
   const filteredProblems = allProblems.filter((problem) => {
-    const categoryMatch = filterCategory === "All" || problem.category === filterCategory;
-    const difficultyMatch = filterDifficulty === "All" || problem.difficulty === filterDifficulty;
+    const difficultyMap = { "Todos": "All", "Fácil": "Easy", "Medio": "Medium", "Difícil": "Hard" };
+    const difficultyInEnglish = difficultyMap[filterDifficulty] || filterDifficulty;
+    
+    const categoryMatch = filterCategory === "Todos" || problem.category === filterCategory;
+    const difficultyMatch = filterDifficulty === "Todos" || problem.difficulty === difficultyInEnglish;
     const searchMatch = !searchQuery ||
       (problem.name && problem.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (problem.id && problem.id.toString().toLowerCase().includes(searchQuery.toLowerCase()));
@@ -118,12 +121,12 @@ const ProblemTable = ({
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Problems</h2>
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Problemas</h2>
         <button
           onClick={() => setIsModalOpen(true)}
           className="flex items-center gap-1 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors"
         >
-          <span className="text-lg">+</span> Add Problem
+          <span className="text-lg">+</span> Agregar Problema
         </button>
       </div>
 
@@ -151,19 +154,19 @@ const ProblemTable = ({
                 #
               </th>
               <th className="w-1/4 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
-                Name
+                Nombre
               </th>
               <th className="w-1/6 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
-                Category
+                Categoría
               </th>
               <th className="w-24 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
-                Difficulty
+                Dificultad
               </th>
               <th className="w-24 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
-                Status
+                Estado
               </th>
               <th className="w-1/3 px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
-                Reviews & Due Dates
+                Revisiones y Fechas
               </th>
             </tr>
           </thead>
@@ -175,7 +178,6 @@ const ProblemTable = ({
                   problem={problem}
                   progress={progress}
                   toggleComplete={toggleComplete}
-                  calculateNextReviews={calculateNextReviews}
                 />
               );
             })}

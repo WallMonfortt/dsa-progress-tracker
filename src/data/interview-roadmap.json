@@ -1,153 +1,153 @@
 [
   {
     "id": "getting-interview",
-    "title": "Getting the Interview",
+    "title": "Conseguir la Entrevista",
     "icon": "Briefcase",
     "color": "bg-blue-500",
     "items": [
       {
         "id": "resume",
-        "title": "Resume & Cover Letters",
-        "description": "Craft a compelling resume that gets past ATS and catches recruiters' attention"
+        "title": "Currículum & Cartas de Presentación",
+        "description": "Crea un currículum convincente que pase la ATS y capture la atención de los reclutadores"
       },
       {
         "id": "linkedin",
-        "title": "LinkedIn Optimization",
-        "description": "Build a strong professional presence and network effectively"
+        "title": "Optimización de LinkedIn",
+        "description": "Crea una presencia profesional fuerte y networking efectivamente"
       },
       {
         "id": "portfolio",
-        "title": "Portfolio Projects",
-        "description": "Showcase your skills with impressive projects"
+        "title": "Proyectos de Portafolio",
+        "description": "Muestra tus habilidades con proyectos impresionantes"
       },
       {
         "id": "experience",
-        "title": "Making Up for Little Experience",
-        "description": "Strategies to compensate for lack of work experience"
+        "title": "Hacerle Frente a la Poca Experiencia",
+        "description": "Estrategias para compensar la falta de experiencia laboral"
       },
       {
         "id": "job-search",
-        "title": "Where to Find Jobs",
-        "description": "Best platforms and strategies for job hunting"
+        "title": "Donde Encontrar Trabajos",
+        "description": "Las mejores plataformas y estrategias para buscar trabajo"
       },
       {
         "id": "email",
-        "title": "Email Outreach",
-        "description": "Cold emailing and networking techniques"
+        "title": "Contacto por Email",
+        "description": "Enviando emails fríos y técnicas de networking"
       },
       {
         "id": "ready",
-        "title": "When Are You Ready to Apply?",
-        "description": "Know when you're prepared to start interviewing"
+        "title": "Cuando Estás Listo para Aplicar?",
+        "description": "Saber cuando estás listo para empezar a entrevistar"
       }
     ]
   },
   {
     "id": "technical",
-    "title": "Technical Interviews",
+    "title": "Entrevistas Técnicas",
     "icon": "Code",
     "color": "bg-green-500",
     "items": [
       {
         "id": "big-o",
-        "title": "Big O Notation",
-        "description": "Master time and space complexity analysis"
+        "title": "Notación Big O",
+        "description": "Domina el análisis de complejidad temporal y espacial"
       },
       {
         "id": "google",
-        "title": "Google Interview Questions",
-        "description": "Practice Google-style algorithm problems"
+        "title": "Preguntas de Entrevistas de Google",
+        "description": "Practica problemas de algoritmos estilo Google"
       },
       {
         "id": "amazon",
-        "title": "Amazon Interview Questions",
-        "description": "Prepare for Amazon's leadership principles and coding rounds"
+        "title": "Preguntas de Entrevistas de Amazon",
+        "description": "Prepararse para los principios de liderazgo y rondas de codificación de Amazon"
       },
       {
         "id": "facebook",
-        "title": "Facebook/Meta Questions",
-        "description": "Tackle Meta's behavioral and technical challenges"
+        "title": "Preguntas de Entrevistas de Facebook/Meta",
+        "description": "Tener en cuenta los desafíos comportamentales y técnicos de Meta"
       },
       {
         "id": "domain",
-        "title": "Domain Specific Questions",
-        "description": "Frontend, Backend, ML, or Systems Design specifics"
+          "title": "Preguntas Específicas de Dominio",
+        "description": "Frontend, Backend, ML, o Diseño de Sistemas específicos"
       }
     ]
   },
   {
     "id": "non-technical",
-    "title": "Non-Technical Interviews",
+    "title": "Entrevistas No Técnicas",
     "icon": "MessageSquare",
     "color": "bg-purple-500",
     "items": [
       {
         "id": "tell-me",
-        "title": "Tell Me About Yourself",
-        "description": "Craft your personal story and elevator pitch"
+        "title": "Cuéntame Sobre Ti",
+        "description": "Crea tu historia personal y pitch de elevador"
       },
       {
         "id": "why-work",
-        "title": "Why Do You Want to Work Here?",
-        "description": "Research companies and show genuine interest"
+        "title": "¿Por Qué Quieres Trabajar Aquí?",
+        "description": "Investiga empresas y muestra genuino interés"
       },
       {
         "id": "weakness",
-        "title": "What Is Your Biggest Weakness?",
-        "description": "Turn weaknesses into growth opportunities"
+        "title": "¿Cuál Es Tu Mayor Debilidad?",
+        "description": "Convertir debilidades en oportunidades de crecimiento"
       },
       {
         "id": "problem-solved",
-        "title": "Tell Me About a Problem You Solved",
-        "description": "Use STAR method for behavioral questions"
+        "title": "Cuéntame Sobre un Problema Que Resolviste",
+        "description": "Usa el método STAR para preguntas comportamentales"
       },
       {
         "id": "questions",
-        "title": "What to Ask the Interviewer",
-        "description": "Prepare insightful questions that show interest"
+        "title": "¿Qué Preguntas Hacerle al Interviewer?",
+        "description": "Prepara preguntas perspicaces que muestren interés"
       },
       {
         "id": "top-questions",
-        "title": "Top Interview Questions",
-        "description": "Common behavioral questions and how to answer them"
+        "title": "Preguntas de Entrevistas Top",
+        "description": "Preguntas comportamentales comunes y cómo responderlas"
       },
       {
         "id": "secret-weapon",
-        "title": "Secret Weapon",
-        "description": "Stand out techniques and strategies"
+        "title": "Arma Secreta",
+        "description": "Técnicas y estrategias para destacar"
       }
     ]
   },
   {
     "id": "offer",
-    "title": "Offer & Negotiation",
+    "title": "Oferta & Negociación",
     "icon": "DollarSign",
     "color": "bg-yellow-500",
     "items": [
       {
         "id": "negotiation-101",
-        "title": "Negotiation 101",
-        "description": "Fundamentals of salary and equity negotiation"
+        "title": "Negociación 101",
+        "description": "Fundamentos de negociación salarial y de acciones"
       },
       {
         "id": "handling-offer",
-        "title": "Handling an Offer",
-        "description": "What to do when you receive an offer"
+        "title": "Manejo de una Oferta",
+        "description": "Qué hacer cuando recibes una oferta"
       },
       {
         "id": "multiple-offers",
-        "title": "Handling Multiple Offers",
-        "description": "Navigate competing offers strategically"
+        "title": "Manejo de Múltiples Ofertas",
+        "description": "Navegar entre ofertas competitivas estratégicamente"
       },
       {
         "id": "raise",
-        "title": "Getting a Raise",
-        "description": "Negotiate salary increases at your current job"
+        "title": "Obtener un Incremento Salarial",
+        "description": "Negociar incrementos salariales en tu trabajo actual"
       },
       {
         "id": "rejection",
-        "title": "Handling Rejection",
-        "description": "Turn rejection into learning and future success"
+        "title": "Manejo de la Rechazo",
+        "description": "Convertir el rechazo en aprendizaje y futuro éxito"
       }
     ]
   }

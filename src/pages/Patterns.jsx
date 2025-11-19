@@ -26,19 +26,19 @@ return (
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-3">
           <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
-            LeetCode Patterns Cheat Sheet
+            Hojas de Referencia de Patrones de Código
           </h1>
           <Code2 size={36} className="text-blue-600 ml-2" />
         </div>
         <p className="text-gray-600 text-lg dark:text-gray-400">
-          Master coding patterns in multiple languages
+          Domina los patrones de codificación en múltiples lenguajes
         </p>
       </div>
 
       {/* Language Selector */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-8 sticky top-4 z-10 dark:bg-gray-600 dark:border-gray-700">
         <div className="flex items-center justify-center gap-3 flex-wrap">
-          <span className="text-gray-700 dark:text-gray-200 font-medium">Select Language:</span>
+          <span className="text-gray-700 dark:text-gray-200 font-medium">Selecciona el lenguaje:</span>
           {languages.map((lang) => (
             <button
               key={lang.id}
@@ -62,8 +62,6 @@ return (
             key={idx}
             className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
           >
-            {/* <div className="bg-gradient-to-r from-blue-500 to-blue-600 py-3 px-4"> */}
-            {/* <div className="bg-gradient-to-r from-purple-500 to-blue-500 py-3 px-4"> */}
             <div className="bg-gradient-to-r from-indigo-500 to-blue-500 py-3 px-4 dark:bg-gradient-to-r dark:from-indigo-600 dark:to-blue-600">
               <h2 className="text-lg font-bold text-white mb-1">
                 {pattern.title}
@@ -77,7 +75,7 @@ return (
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase">
                     {languages.find((l) => l.id === selectedLanguage)?.name}{" "}
-                    Template
+                    Plantilla
                   </span>
                   <button
                     onClick={() =>
@@ -88,12 +86,12 @@ return (
                     {copiedIndex === idx ? (
                       <>
                         <Check size={16} className="text-green-600" />
-                        <span className="text-green-600">Copied!</span>
+                        <span className="text-green-600">Copiado!</span>
                       </>
                     ) : (
                       <>
                         <Copy size={16} />
-                        <span>Copy</span>
+                        <span>Copiar</span>
                       </>
                     )}
                   </button>
@@ -108,7 +106,7 @@ return (
               {/* Common Problems */}
               <div className="bg-blue-50 dark:bg-gray-800 dark:border-gray-700 rounded-lg p-4">
                 <span className="font-semibold text-blue-900 dark:text-blue-400 text-sm">
-                  Common Problems:
+                  Problemas Comunes:
                 </span>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {pattern.problems.map((problem, pIdx) => (
@@ -128,9 +126,8 @@ return (
 
       {/* Footer */}
       <div className="mt-12 text-center text-gray-600 dark:text-gray-400">
-        <p className="text-sm">
-          💡 Practice these patterns regularly to build strong problem-solving
-          intuition
+        <p className="text-sm border-2 border-blue-500 text-blue-500 rounded-lg p-2">
+          💡 Practica estos patrones regularmente para fortalecer tu intuición de resolución de problemas
         </p>
       </div>
     </div>

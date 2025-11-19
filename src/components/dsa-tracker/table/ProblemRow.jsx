@@ -1,10 +1,16 @@
 import { CheckCircle2, Circle, Calendar, ExternalLink } from "lucide-react";
-import { isOverdue, isDueToday, calculateNextReviews } from "../../utils/dateUtils";
+import { isOverdue, isDueToday, calculateNextReviews } from "../../../utils/dateUtils";
 
 const difficultyColor = {
   Easy: "text-green-600 dark:text-green-400",
   Medium: "text-yellow-600 dark:text-yellow-400",
   Hard: "text-red-600",
+};
+
+const difficultyLabels = {
+  Easy: "Fácil",
+  Medium: "Medio",
+  Hard: "Difícil",
 };
 
 const ProblemRow = ({ 
@@ -17,7 +23,7 @@ const ProblemRow = ({
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
+    return date.toLocaleDateString("es-ES", {
       month: "short",
       day: "numeric",
     });
@@ -36,7 +42,7 @@ const ProblemRow = ({
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 dark:text-gray-800 dark:hover:text-blue-400 hover:text-blue-800 hover:underline flex items-center gap-1 truncate"
-            title={`Open ${problem.name} on NeetCode`}
+            title={`Abrir ${problem.name} en NeetCode`}
           >
             <span className="truncate">{problem.name}</span>
             <ExternalLink size={14} className="flex-shrink-0" />
@@ -48,9 +54,9 @@ const ProblemRow = ({
       </td>
       <td
         className={`w-24 px-2 py-4 text-sm font-semibold ${difficultyColor[problem.difficulty]} truncate`}
-        title={problem.difficulty}
+        title={difficultyLabels[problem.difficulty] || problem.difficulty}
       >
-        {problem.difficulty}
+        {difficultyLabels[problem.difficulty] || problem.difficulty}
       </td>
       <td className="w-24 px-2 py-4 whitespace-nowrap">
         <button
@@ -63,7 +69,7 @@ const ProblemRow = ({
             <Circle size={20} />
           )}
           <span className="text-xs dark:text-gray-800">
-            {prob.solved ? "Solved" : "Not Solved"}
+            {prob.solved ? "Resuelto" : "No Resuelto"}
           </span>
         </button>
       </td>
@@ -89,7 +95,7 @@ const ProblemRow = ({
                         ? "bg-yellow-100 text-yellow-700 border-yellow-300 dark:bg-yellow-600 dark:text-yellow-400"
                         : "bg-gray-100 text-gray-600 border-gray-300 dark:bg-gray-600 dark:text-gray-400"
                     }`}
-                    title={`Review ${idx + 1} - Due: ${formatDate(date)}`}
+                    title={`Revisión ${idx + 1} - Vence: ${formatDate(date)}`}
                   >
                     {`R${idx + 1}`}
                   </button>
@@ -113,7 +119,7 @@ const ProblemRow = ({
           </div>
         ) : (
           <span className="text-xs text-gray-400 dark:text-gray-800">
-            Complete problem to see review schedule
+            Completa el problema para ver el calendario de revisiones
           </span>
         )}
       </td>

@@ -55,12 +55,12 @@ const InterviewRoadmap = () => {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-3">
             <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
-              Interview Mastery Roadmap
+              Ruta para Entrevistas
             </h1>
             <Rocket size={36} className="text-blue-600 ml-2" />
           </div>
           <p className="text-lg text-gray-600 dark:text-gray-400">
-            Your complete guide from application to offer
+            Tu guía completa desde la aplicación hasta la oferta
           </p>
         </div>
 
@@ -74,7 +74,7 @@ const InterviewRoadmap = () => {
                 : "bg-gray-100 dark:bg-gray-300 text-gray-700 dark:text-gray-600 hover:bg-gray-200"
             }`}
           >
-            Interview Process
+            Proceso de Entrevistas
           </button>
           <button
             onClick={() => setActiveTab("dsa")}
@@ -84,7 +84,7 @@ const InterviewRoadmap = () => {
                 : "bg-gray-100 dark:bg-gray-300 text-gray-700 dark:text-gray-600 hover:bg-gray-200"
             }`}
           >
-            DSA Mind Map
+            Mapa Mental de DSA
           </button>
         </div>
 

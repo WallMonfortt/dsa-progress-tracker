@@ -1,6 +1,6 @@
-import { useTheme } from '../hooks/useTheme';
-import SunIcon from '../assets/icons/SunIcon';
-import MoonIcon from '../assets/icons/MoonIcon';
+import { useTheme } from '../../../hooks/useTheme';
+import SunIcon from '../../../assets/icons/SunIcon';
+import MoonIcon from '../../../assets/icons/MoonIcon';
 
 const ThemeToggleButton = () => {
   const { theme, toggleTheme } = useTheme();

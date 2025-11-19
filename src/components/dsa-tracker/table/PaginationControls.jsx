@@ -21,18 +21,15 @@ const PaginationControls = ({
   return (
     <div className={`flex items-center justify-between ${className}`}>
       <div className="text-sm text-gray-600 dark:text-gray-400">
-        Showing <span className="font-medium">{indexOfFirstItem + 1}</span> to{' '}
-        <span className="font-medium">
-          {indexOfLastItem}
-        </span>{' '}
-        of <span className="font-medium">{totalItems}</span> results
-      </div>
+        <span className="font-medium">{indexOfFirstItem + 1}</span> -{' '}
+        <span className="font-medium">{indexOfLastItem}</span> de <span className="font-medium">{totalItems}</span> 
+      </div>  
       <div className="flex items-center space-x-1">
         <button
           onClick={onFirstPage}
           disabled={currentPage === 1}
           className="p-1 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          title="First page"
+          title="Primera página"
         >
           <ChevronsLeft size={18} />
         </button>
@@ -40,7 +37,7 @@ const PaginationControls = ({
           onClick={onPrevPage}
           disabled={currentPage === 1}
           className="p-1 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          title="Previous page"
+          title="Página anterior"
         >
           <ChevronLeft size={18} />
         </button>
@@ -54,7 +51,7 @@ const PaginationControls = ({
                 ? 'bg-blue-600 text-white'
                 : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
-            title={`Go to page ${pageNum}`}
+            title={`Ir a la página ${pageNum}`}
           >
             {pageNum}
           </button>
@@ -64,7 +61,7 @@ const PaginationControls = ({
           onClick={onNextPage}
           disabled={currentPage === totalPages}
           className="p-1 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          title="Next page"
+          title="Página siguiente"
         >
           <ChevronRight size={18} />
         </button>
@@ -72,7 +69,7 @@ const PaginationControls = ({
           onClick={onLastPage}
           disabled={currentPage === totalPages}
           className="p-1 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          title="Last page"
+          title="Última página"
         >
           <ChevronsRight size={18} />
         </button>
