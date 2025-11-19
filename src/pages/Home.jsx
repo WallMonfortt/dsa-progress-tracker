@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { StartNowBtn } from '../components';
+import { StartNowBtn } from '../components/ui';
 import { Code, BookOpen, BarChart2, Target, Clock, CheckCircle } from 'lucide-react';
 
 const Home = () => {

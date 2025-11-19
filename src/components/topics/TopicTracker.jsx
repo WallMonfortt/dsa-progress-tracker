@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Info, ChevronDown } from 'lucide-react';
 import useTopics from '../../hooks/useTopics';
 import TopicCard from './TopicCard';
-import { Explanation } from '../sections/Explanation';
+import { Explanation } from '../sections';
 
 const TopicTracker = ({ topicId, topicData }) => {
   const {

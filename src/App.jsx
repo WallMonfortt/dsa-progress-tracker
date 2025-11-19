@@ -10,7 +10,7 @@ import {
   Fundamentos, 
   ToolsList 
 } from "./pages";
-import { Navbar, Footer } from "./components";
+import { Navbar, Footer } from "./components/layout";
 
 const App = () => {
   return (

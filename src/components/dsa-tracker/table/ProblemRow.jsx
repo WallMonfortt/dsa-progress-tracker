@@ -1,5 +1,5 @@
 import { CheckCircle2, Circle, Calendar, ExternalLink } from "lucide-react";
-import { isOverdue, isDueToday, calculateNextReviews } from "../../utils/dateUtils";
+import { isOverdue, isDueToday, calculateNextReviews } from "../../../utils/dateUtils";
 
 const difficultyColor = {
   Easy: "text-green-600 dark:text-green-400",

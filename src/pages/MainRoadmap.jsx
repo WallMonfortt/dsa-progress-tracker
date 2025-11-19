@@ -1,7 +1,7 @@
 import { Code, BookOpen, Cpu, Database, Cloud, Server, GitBranch, Terminal, Globe, Zap, CheckCircle, ChevronRight } from "lucide-react";
 import { topics } from "../data";
 import { useState, useEffect } from "react";
-import TopicCard from "../components/TopicCard";
+import { RoadmapTopicCard } from "../components/roadmap";
 
 const MainRoadmap = () => {
   const [progress, setProgress] = useState({});
@@ -34,7 +34,7 @@ const MainRoadmap = () => {
     const currentProgress = progress[topic.title] || 100;
 
     return (
-      <TopicCard
+      <RoadmapTopicCard
         key={index}
         topic={topic}
         isUnlocked={unlocked}

@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
-import AddProblemModal from "./AddProblemModal";
+import { AddProblemModal } from "./modals";
 import { ProblemRow } from "./table";
-import { isDueToday, isOverdue, calculateNextReviews } from "../utils/dateUtils";
-import PaginationControls from "./table/PaginationControls";
+import { isDueToday, isOverdue, calculateNextReviews } from "../../utils/dateUtils";
+import { PaginationControls } from "./table";
 
 const ProblemTable = ({
   problems,

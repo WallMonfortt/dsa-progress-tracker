@@ -30,7 +30,7 @@ El objetivo es crear una herramienta todo-en-uno que no solo registre problemas 
 * ✅ **Modo Oscuro:** Soporte completo de modo oscuro para sesiones de programación nocturnas cómodas.
 * ✅ **Estadísticas de Progreso:** Rastrea tu progreso con estadísticas detalladas (total resueltos, por dificultad, pendientes hoy).
 * ✅ **Filtrado y Búsqueda:** Filtra por categoría, dificultad o busca por nombre/ID.
-* ✅ **Múltiples Rutas de Aprendizaje:** Acceso a diferentes caminos de aprendizaje (Fundamentos, Patterns, Interview Roadmap).
+* 📝 **Múltiples Rutas de Aprendizaje(en construcción):** Acceso a diferentes caminos de aprendizaje (Fundamentos, Patterns, Interview Roadmap).
 * ✏️ **Sistema de Notas (Planeado):** Una sección dedicada para cada problema para agregar notas personales, complejidad de tiempo/espacio (Big O), y enfoques de solución.
 * ⏱️ **Temporizador de Práctica (Planeado):** Una característica para cronometrar sesiones de resolución de problemas, simulando condiciones reales de entrevista.
 * 🏷️ **Etiquetas Personalizadas (Planeado):** Un sistema para etiquetar problemas con etiquetas como "Revisar en 7 días", "Complicado", o "Favorito".
@@ -96,7 +96,7 @@ Asegúrate de tener Node.js (v16 o superior) instalado en tu máquina.
 * [ ] Implementar sistema de notas para problemas
 * [ ] Agregar funcionalidad de temporizador de práctica
 * [ ] Agregar sistema de etiquetas personalizadas
-* [ ] Refactorizar estructura del proyecto
+* [x] Refactorizar estructura del proyecto
 * [ ] Agregar pruebas unitarias para componentes
 * [ ] Extraer componentes reutilizables a biblioteca compartida
 * [ ] Extraer paleta de colores y tema a biblioteca compartida
@@ -107,17 +107,104 @@ Asegúrate de tener Node.js (v16 o superior) instalado en tu máquina.
 
 ```
 src/
-├── components/       # Componentes React reutilizables
-│   ├── buttons/     # Componentes de botones
-│   ├── sections/    # Componentes de secciones
-│   └── table/       # Componentes relacionados con tablas
-├── contexts/        # Contextos de React (Theme)
-├── data/            # Archivos JSON de datos (problemas, temas, etc.)
-├── hooks/           # Hooks personalizados de React
-├── pages/           # Componentes de página (rutas)
-├── utils/           # Funciones de utilidad
-└── assets/          # Recursos estáticos (iconos, imágenes)
+├── components/              # Componentes React organizados por dominio
+│   ├── layout/             # Componentes de layout (Navbar, Footer)
+│   │   ├── Navbar.jsx
+│   │   ├── Footer.jsx
+│   │   └── index.js
+│   │
+│   ├── ui/                 # Componentes UI reutilizables
+│   │   ├── buttons/        # Botones reutilizables
+│   │   │   ├── StartNowBtn.jsx
+│   │   │   ├── ThemeToggleButton.jsx
+│   │   │   └── index.js
+│   │   ├── StatsCard.jsx
+│   │   └── index.js
+│   │
+│   ├── dsa-tracker/        # Componentes del DSA Progress Tracker
+│   │   ├── ProblemTable.jsx
+│   │   ├── Filters.jsx
+│   │   ├── ExportImportControls.jsx
+│   │   ├── modals/         # Modales del tracker
+│   │   │   ├── AddProblemModal.jsx
+│   │   │   └── index.js
+│   │   ├── table/          # Componentes de tabla
+│   │   │   ├── ProblemRow.jsx
+│   │   │   ├── PaginationControls.jsx
+│   │   │   └── index.js
+│   │   └── index.js
+│   │
+│   ├── topics/             # Componentes de tracking de temas
+│   │   ├── TopicTracker.jsx
+│   │   ├── TopicCard.jsx
+│   │   ├── AddResourceModal.jsx
+│   │   └── index.js
+│   │
+│   ├── roadmap/            # Componentes del roadmap
+│   │   ├── RoadmapTopicCard.jsx
+│   │   └── index.js
+│   │
+│   ├── sections/           # Secciones reutilizables
+│   │   ├── Explanation.jsx
+│   │   └── index.js
+│   │
+│   └── index.js            # Exportaciones centralizadas
+│
+├── contexts/               # Contextos de React (Theme)
+│   └── ThemeContext.jsx
+│
+├── data/                   # Archivos JSON de datos
+│   ├── problems.json       # Lista de problemas DSA
+│   ├── topics.json          # Temas del roadmap
+│   ├── patterns.json       # Patrones de algoritmos
+│   ├── interview-roadmap.json
+│   ├── dsa-mindmap.json
+│   └── index.js
+│
+├── hooks/                  # Hooks personalizados de React
+│   ├── useLocalStorage.js
+│   ├── useProgress.js      # Hook genérico de progreso
+│   ├── useSpacedRepetition.js
+│   ├── useProblems.js      # Hook específico para problemas
+│   ├── useTopics.js        # Hook específico para temas
+│   ├── useTheme.js
+│   └── index.js
+│
+├── pages/                  # Componentes de página (rutas)
+│   ├── Home.jsx
+│   ├── MainRoadmap.jsx
+│   ├── DSAProgressTracker.jsx
+│   ├── Fundamentos.jsx
+│   ├── Patterns.jsx
+│   ├── InterviewRoadmap.jsx
+│   ├── ToolsList.jsx
+│   ├── BuildingPage.jsx
+│   ├── 404.jsx
+│   └── index.js
+│
+├── utils/                  # Funciones de utilidad
+│   └── dateUtils.js        # Utilidades de fechas y repetición espaciada
+│
+├── assets/                 # Recursos estáticos
+│   └── icons/              # Iconos personalizados
+│       ├── SunIcon.jsx
+│       └── MoonIcon.jsx
+│
+├── App.jsx                 # Componente principal de la aplicación
+├── main.jsx                # Punto de entrada
+└── index.css               # Estilos globales
 ```
+
+### 🏗️ Organización por Dominio
+
+La estructura de componentes está organizada por dominio funcional para mejorar la escalabilidad y mantenibilidad:
+
+- **`layout/`**: Componentes de estructura general (navbar, footer)
+- **`ui/`**: Componentes UI reutilizables (botones, cards, etc.)
+- **`dsa-tracker/`**: Todos los componentes relacionados con el tracker de problemas DSA
+- **`topics/`**: Componentes para el sistema de tracking de temas/recursos
+- **`roadmap/`**: Componentes específicos del roadmap de aprendizaje
+- **`sections/`**: Secciones reutilizables que pueden usarse en múltiples páginas
 
 ## 📄 Licencia
 
@@ -127,6 +214,6 @@ Distribuido bajo la Licencia MIT. Ver `LICENSE.txt` para más información.
 
 ## 🙏 Agradecimientos (¡Importante!)
 
-Quiero extender un agradecimiento especial a **Javlonbek Kosimov ([javydevx](https://github.com/javydevx))** por su increíble trabajo al crear el proyecto original, [neetcode-tracker](https://github.com/javydevx/neetcode-tracker).
+Quiero extender un agradecimiento especial a **Javlonbek Kosimov ([javydevx](https://github.com/javydevx))** por su increíble trabajo al crear el proyecto neetcode tracker, [neetcode-tracker](https://github.com/javydevx/neetcode-tracker).
 
-Este proyecto no sería posible sin su código base fundamental, que sirvió como la inspiración principal y punto de partida para esta nueva versión. Si encuentras útil esta herramienta, por favor considera visitar el repositorio original para darle una estrella. ⭐
+Este proyecto no sería posible sin su código, que sirvió como la inspiración principal y punto de partida para esta nueva versión. Si encuentras útil esta herramienta, por favor considera visitar el repositorio original para darle una estrella. ⭐

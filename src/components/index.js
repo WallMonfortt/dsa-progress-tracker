@@ -1,7 +1,17 @@
-export { default as Navbar } from "./Navbar";
-export { default as Filters } from "./Filters";
-export { default as StatsCard } from "./StatsCard";
-export { default as ProblemTable } from "./ProblemTable";
-export { default as ExportImportControls } from "./ExportImportControls";
-export { default as Footer } from "./Footer";
-export { default as StartNowBtn } from "./buttons/StartNowBtn";
+// Layout components
+export * from './layout';
+
+// UI components
+export * from './ui';
+
+// DSA Tracker components
+export * from './dsa-tracker';
+
+// Topics components
+export * from './topics';
+
+// Roadmap components
+export * from './roadmap';
+
+// Sections
+export * from './sections';

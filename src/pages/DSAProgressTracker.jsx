@@ -2,11 +2,11 @@ import { useState } from "react";
 import { ExternalLink, Map, Info, ChevronDown } from "lucide-react";
 import {
   Filters,
-  StatsCard,
   ProblemTable,
   ExportImportControls,
-} from "../components";
-import { Explanation } from "../components/sections/Explanation";
+} from "../components/dsa-tracker";
+import { StatsCard } from "../components/ui";
+import { Explanation } from "../components/sections";
 import useProblems from "../hooks/useProblems";
 
 const DSAProgressTracker = () => {

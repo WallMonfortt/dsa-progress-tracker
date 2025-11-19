@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Home } from "lucide-react";
-import ThemeToggleButton from "./ThemeToggleButton";
+import ThemeToggleButton from "../ui/buttons/ThemeToggleButton";
 
 const Navbar = () => (
   <nav className="bg-blue-100 dark:bg-gray-800 shadow pb-4 pt-4 transition-colors duration-200">
