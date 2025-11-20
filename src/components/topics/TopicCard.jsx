@@ -11,10 +11,12 @@ import {
   FileText,
   GraduationCap,
   Book,
-  FileCode
+  FileCode,
+  Image
 } from 'lucide-react';
 import { isOverdue, isDueToday, calculateNextReviews } from '../../utils/dateUtils';
 import AddResourceModal from './AddResourceModal';
+import { ExcalidrawViewer } from '../ui';
 
 const resourceIcons = {
   video: Video,
@@ -36,6 +38,7 @@ const TopicCard = ({
   isDue
 }) => {
   const [isResourceModalOpen, setIsResourceModalOpen] = useState(false);
+  const [excalidrawModal, setExcalidrawModal] = useState({ isOpen: false, path: null, title: '' });
   const subtopicProgress = progress || {
     completed: false,
     reviews: Array(5).fill(false),
@@ -220,6 +223,20 @@ const TopicCard = ({
                           {resource.estimatedReadTime} min
                         </span>
                       )}
+                      {resource.excalidrawPath && (
+                        <button
+                          onClick={() => setExcalidrawModal({
+                            isOpen: true,
+                            path: resource.excalidrawPath,
+                            title: resource.title
+                          })}
+                          className="p-1 hover:bg-blue-100 dark:hover:bg-blue-900 rounded transition-colors"
+                          title="Ver diagrama Excalidraw"
+                          aria-label="Ver diagrama Excalidraw"
+                        >
+                          <Image size={14} className="text-blue-600 dark:text-blue-400" />
+                        </button>
+                      )}
                       <ExternalLink size={12} />
                     </div>
                   </div>
@@ -238,6 +255,13 @@ const TopicCard = ({
           setIsResourceModalOpen(false);
         }}
         subtopicTitle={subtopic.title}
+      />
+
+      <ExcalidrawViewer
+        isOpen={excalidrawModal.isOpen}
+        onClose={() => setExcalidrawModal({ isOpen: false, path: null, title: '' })}
+        excalidrawData={excalidrawModal.path}
+        title={excalidrawModal.title || 'Visualizador de Excalidraw'}
       />
     </>
   );
