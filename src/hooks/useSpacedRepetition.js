@@ -1,4 +1,4 @@
-import { getToday, calculateNextReviews } from "../utils/dateUtils";
+import { getToday, calculateNextReviews, isDueToday, isOverdue } from "../utils/dateUtils";
 
 /**
  * Hook for managing spaced repetition logic
@@ -22,12 +22,13 @@ const useSpacedRepetition = () => {
    * Check if an item is due for review
    * @param {Object} progressItem - Progress item with completed date and reviews
    * @param {string[]} nextReviews - Array of next review dates
-   * @returns {boolean} True if item is due for review
+   * @param {string} completedFieldName - Name of the completed field ('solved' or 'completed')
+   * @returns {boolean} True if item is due for review (today or overdue)
    */
-  const isDueForReview = (progressItem, nextReviews) => {
-    if (!progressItem || !progressItem.completed) return false;
+  const isDueForReview = (progressItem, nextReviews, completedFieldName = 'completed') => {
+    if (!progressItem || !progressItem[completedFieldName]) return false;
     return nextReviews.some(
-      (date, idx) => !progressItem.reviews?.[idx] && date <= today
+      (date, idx) => !progressItem.reviews?.[idx] && (isDueToday(date) || isOverdue(date))
     );
   };
 
