@@ -133,9 +133,23 @@ const ExcalidrawViewer = ({
         if (typeof excalidrawData === 'string') {
           const response = await fetch(excalidrawData);
           if (!response.ok) {
-            throw new Error('Error al cargar el archivo de Excalidraw');
+            throw new Error(`Error al cargar el archivo de Excalidraw: ${response.status} ${response.statusText}`);
           }
-          data = await response.json();
+          
+          const text = await response.text();
+          
+          const trimmedText = text.trim();
+          if (trimmedText.startsWith('<!') || trimmedText.startsWith('<!doctype') || trimmedText.startsWith('<!DOCTYPE')) {
+            throw new Error(`Archivo no encontrado: ${excalidrawData}. Verifica que el archivo exista en la carpeta public/excalidraw.`);
+          }
+          
+          try {
+            data = JSON.parse(text);
+          } catch (parseError) {
+            console.error('Error parsing Excalidraw JSON:', parseError);
+            console.error('Response text preview:', text.substring(0, 200));
+            throw new Error(`El archivo no es un JSON válido de Excalidraw: ${parseError.message}`);
+          }
         } else {
           data = excalidrawData;
         }
@@ -157,9 +171,16 @@ const ExcalidrawViewer = ({
         console.error('Error details:', {
           message: err.message,
           stack: err.stack,
-          data: typeof excalidrawData === 'string' ? 'URL' : 'Object'
+          data: typeof excalidrawData === 'string' ? excalidrawData : 'Object',
+          dataType: typeof excalidrawData
         });
-        setError(err.message || 'Error al cargar el archivo');
+        
+        let errorMessage = err.message || 'Error al cargar el archivo';
+        if (err.message && err.message.includes('JSON')) {
+          errorMessage = `Error al cargar el archivo Excalidraw: ${err.message}. Verifica que la ruta sea correcta: ${typeof excalidrawData === 'string' ? excalidrawData : 'N/A'}`;
+        }
+        
+        setError(errorMessage);
         setExcalidrawElements(null);
         setExcalidrawAppState(null);
       } finally {
