@@ -1,0 +1,51 @@
+// Problem types
+export interface Problem {
+  id: number;
+  name: string;
+  category: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  day: number;
+  url: string;
+}
+
+// Topic types
+export interface Resource {
+  id: string;
+  type: 'video' | 'article' | 'exercise' | 'other';
+  title: string;
+  url: string;
+  duration?: string;
+  completed?: boolean;
+  excalidrawPath?: string;
+  addedDate?: string;
+}
+
+export interface Subtopic {
+  id: string;
+  title: string;
+  resources: Resource[];
+}
+
+export interface Topic {
+  id: string;
+  title: string;
+  description?: string;
+  subtopics: Subtopic[];
+}
+
+// Progress types
+export interface ProblemProgress {
+  solved: boolean;
+  solvedDate?: string;
+  reviews: boolean[];
+  dates: Record<string, string>;
+}
+
+export interface TopicProgress {
+  completed: boolean;
+  completedDate?: string;
+  reviews: boolean[];
+  dates: Record<string, string>;
+  resources?: Record<string, boolean>;
+}
+
