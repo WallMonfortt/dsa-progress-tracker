@@ -119,8 +119,8 @@ const useProgress = (storageKey, options = {}) => {
   const isItemDue = useCallback((itemId) => {
     const itemProgress = getItemProgress(itemId);
     const nextReviews = getItemNextReviews(itemId);
-    return isDueForReview(itemProgress, nextReviews);
-  }, [getItemProgress, getItemNextReviews, isDueForReview]);
+    return isDueForReview(itemProgress, nextReviews, completedFieldName);
+  }, [getItemProgress, getItemNextReviews, isDueForReview, completedFieldName]);
 
   return {
     progress,
