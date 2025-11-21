@@ -10,4 +10,11 @@ export default defineConfig({
       plugins: [tailwindcss, autoprefixer],
     },
   },
+  server: {
+    fs: {
+      strict: false,
+    },
+  },
+  publicDir: 'public',
+  assetsInclude: ['**/*.excalidraw'],
 });

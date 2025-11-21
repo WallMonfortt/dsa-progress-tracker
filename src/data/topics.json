@@ -15,7 +15,8 @@
             "title": "¿Qué es programar?",
             "url": "#",
             "duration": "10:45",
-            "completed": false
+            "completed": false,
+            "excalidrawPath": "/excalidraw/que_es_programar.excalidraw"
           },
           {
             "id": "first-steps",
