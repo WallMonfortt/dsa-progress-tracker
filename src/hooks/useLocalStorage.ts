@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 
-const useLocalStorage = (key, initialValue) => {
+type SetValue<T> = T | ((val: T) => T);
+
+function useLocalStorage<T>(key: string, initialValue: T): [T, (value: SetValue<T>) => void] {
   const keyRef = useRef(key);
   const initialValueRef = useRef(initialValue);
-  const [storedValue, setStoredValue] = useState(() => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValueRef.current;
@@ -16,7 +18,7 @@ const useLocalStorage = (key, initialValue) => {
   const storedValueRef = useRef(storedValue);
   storedValueRef.current = storedValue;
 
-  const setValue = (value) => {
+  const setValue = (value: SetValue<T>) => {
     try {
       const valueToStore = value instanceof Function ? value(storedValueRef.current) : value;
       const valueToStoreStr = JSON.stringify(valueToStore);
@@ -32,10 +34,10 @@ const useLocalStorage = (key, initialValue) => {
   };
 
   useEffect(() => {
-    const handleStorageChange = (e) => {
+    const handleStorageChange = (e: StorageEvent) => {
       if (e.key === keyRef.current && e.newValue !== null) {
         try {
-          const newValue = JSON.parse(e.newValue);
+          const newValue = JSON.parse(e.newValue) as T;
           if (JSON.stringify(storedValueRef.current) !== e.newValue) {
             setStoredValue(newValue);
           }
@@ -50,6 +52,7 @@ const useLocalStorage = (key, initialValue) => {
   }, []);
 
   return [storedValue, setValue];
-};
+}
 
 export default useLocalStorage;
+

@@ -19,3 +19,4 @@ const StartNowBtn = () => {
 };
 
 export default StartNowBtn;
+

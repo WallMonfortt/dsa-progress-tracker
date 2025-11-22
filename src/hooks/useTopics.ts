@@ -1,14 +1,18 @@
 import { useCallback } from "react";
 import useLocalStorage from "./useLocalStorage";
 import useProgress from "./useProgress";
+import type { Resource, ProgressItem } from "../types";
+
+interface CustomResourceGroup {
+    subtopicId: string;
+    resources: Resource[];
+}
 
 /**
  * Hook for managing topic/subtopic tracking with resources
  * Uses the base useProgress hook for spaced repetition logic
- * 
- * @param {string} topicId - Unique identifier for the topic
  */
-const useTopics = (topicId) => {
+const useTopics = (topicId: string) => {
     const {
         progress,
         setProgress,
@@ -23,20 +27,21 @@ const useTopics = (topicId) => {
         numReviews: 5,
     });
 
-    const [customResources, setCustomResources] = useLocalStorage(`topic-resources-${topicId}`, []);
+    const [customResources, setCustomResources] = useLocalStorage<CustomResourceGroup[]>(
+        `topic-resources-${topicId}`,
+        []
+    );
 
     // Alias for consistency with component naming
     const toggleTopicComplete = baseToggleComplete;
 
     /**
      * Toggle resource completion status
-     * @param {string} subtopicId - ID of the subtopic
-     * @param {string} resourceId - ID of the resource
      */
-    const toggleResourceComplete = useCallback((subtopicId, resourceId) => {
+    const toggleResourceComplete = useCallback((subtopicId: string, resourceId: string) => {
         setProgress((prev) => {
-            const current = prev[subtopicId] || { resources: {} };
-            const resources = current.resources || {};
+            const current = prev[subtopicId] || { resources: {} } as ProgressItem;
+            const resources = (current.resources as Record<string, boolean>) || {};
             const newResources = {
                 ...resources,
                 [resourceId]: !resources[resourceId],
@@ -50,15 +55,13 @@ const useTopics = (topicId) => {
 
     /**
      * Add a custom resource to a subtopic
-     * @param {string} subtopicId - ID of the subtopic
-     * @param {Object} resource - Resource object to add
      */
-    const addResource = useCallback((subtopicId, resource) => {
-        const newResource = {
+    const addResource = useCallback((subtopicId: string, resource: Omit<Resource, 'id'> & { id?: string }) => {
+        const newResource: Resource = {
             ...resource,
-            id: resource.id || `r-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            id: resource.id || `r-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
             addedDate: today,
-        };
+        } as Resource;
         setCustomResources((prev) => {
             const existingIndex = prev.findIndex((r) => r.subtopicId === subtopicId);
             if (existingIndex >= 0) {
@@ -82,10 +85,8 @@ const useTopics = (topicId) => {
 
     /**
      * Check if a subtopic is due for review
-     * @param {string} subtopicId - ID of the subtopic
-     * @returns {boolean} True if subtopic is due
      */
-    const isSubtopicDue = useCallback((subtopicId) => {
+    const isSubtopicDue = useCallback((subtopicId: string) => {
         return isSubtopicDueBase(subtopicId);
     }, [isSubtopicDueBase]);
 

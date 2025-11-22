@@ -1,24 +1,38 @@
 import { useCallback } from 'react';
 import useLocalStorage from './useLocalStorage';
-import useSpacedRepetition from './useSpacedRepetition';
+import useSpacedRepetition, { ProgressItem } from './useSpacedRepetition';
+
+interface UseProgressOptions {
+  completedFieldName?: string;
+  numReviews?: number;
+}
+
+interface UseProgressReturn {
+  progress: Record<string, ProgressItem>;
+  setProgress: (value: Record<string, ProgressItem> | ((prev: Record<string, ProgressItem>) => Record<string, ProgressItem>)) => void;
+  toggleComplete: (itemId: string) => void;
+  toggleReview: (itemId: string, reviewIndex: number) => void;
+  getItemProgress: (itemId: string) => ProgressItem;
+  isItemCompleted: (itemId: string) => boolean;
+  getItemNextReviews: (itemId: string) => string[];
+  isItemDue: (itemId: string) => boolean;
+  today: string;
+}
 
 /**
  * Base hook for tracking progress with spaced repetition
  * Can be used for any type of trackable item (problems, topics, etc.)
- * 
- * @param {string} storageKey - Key for localStorage
- * @param {Object} options - Configuration options
- * @param {string} options.completedFieldName - Name of completed field ('solved' or 'completed')
- * @param {number} options.numReviews - Number of review cycles (default: 5)
- * @returns {Object} Progress tracking functions and state
  */
-const useProgress = (storageKey, options = {}) => {
+const useProgress = (
+  storageKey: string,
+  options: UseProgressOptions = {}
+): UseProgressReturn => {
   const {
     completedFieldName = 'completed',
     numReviews = 5,
   } = options;
 
-  const [progress, setProgress] = useLocalStorage(storageKey, {});
+  const [progress, setProgress] = useLocalStorage<Record<string, ProgressItem>>(storageKey, {});
   const { today, getNextReviewDates, isDueForReview, getDefaultProgress } = useSpacedRepetition();
 
   // Helper to get default progress structure
@@ -28,9 +42,8 @@ const useProgress = (storageKey, options = {}) => {
 
   /**
    * Toggle completion status of an item
-   * @param {string} itemId - ID of the item
    */
-  const toggleComplete = useCallback((itemId) => {
+  const toggleComplete = useCallback((itemId: string) => {
     setProgress((prev) => {
       const current = prev[itemId] || getDefaultItemProgress();
       const isCompleted = current[completedFieldName];
@@ -58,16 +71,14 @@ const useProgress = (storageKey, options = {}) => {
 
   /**
    * Toggle review status for a specific review cycle
-   * @param {string} itemId - ID of the item
-   * @param {number} reviewIndex - Index of the review (0-based)
    */
-  const toggleReview = useCallback((itemId, reviewIndex) => {
+  const toggleReview = useCallback((itemId: string, reviewIndex: number) => {
     setProgress((prev) => {
       const current = prev[itemId] || getDefaultItemProgress();
-      const newReviews = [...current.reviews];
+      const newReviews = [...(current.reviews || [])];
       newReviews[reviewIndex] = !newReviews[reviewIndex];
       
-      const newDates = { ...current.dates };
+      const newDates = { ...current.dates || {} };
       if (newReviews[reviewIndex]) {
         newDates[`review${reviewIndex + 1}`] = today;
       } else {
@@ -83,40 +94,32 @@ const useProgress = (storageKey, options = {}) => {
 
   /**
    * Get progress for a specific item
-   * @param {string} itemId - ID of the item
-   * @returns {Object} Progress data for the item
    */
-  const getItemProgress = useCallback((itemId) => {
+  const getItemProgress = useCallback((itemId: string): ProgressItem => {
     return progress[itemId] || getDefaultItemProgress();
   }, [progress, getDefaultItemProgress]);
 
   /**
    * Check if an item is completed
-   * @param {string} itemId - ID of the item
-   * @returns {boolean} True if item is completed
    */
-  const isItemCompleted = useCallback((itemId) => {
+  const isItemCompleted = useCallback((itemId: string): boolean => {
     const itemProgress = getItemProgress(itemId);
     return itemProgress[completedFieldName] === true;
   }, [getItemProgress, completedFieldName]);
 
   /**
    * Get next review dates for an item
-   * @param {string} itemId - ID of the item
-   * @returns {string[]} Array of review dates
    */
-  const getItemNextReviews = useCallback((itemId) => {
+  const getItemNextReviews = useCallback((itemId: string): string[] => {
     const itemProgress = getItemProgress(itemId);
-    const completedDate = itemProgress[`${completedFieldName}Date`];
+    const completedDate = itemProgress[`${completedFieldName}Date`] as string | undefined;
     return getNextReviewDates(completedDate);
   }, [getItemProgress, completedFieldName, getNextReviewDates]);
 
   /**
    * Check if an item is due for review
-   * @param {string} itemId - ID of the item
-   * @returns {boolean} True if item is due
    */
-  const isItemDue = useCallback((itemId) => {
+  const isItemDue = useCallback((itemId: string): boolean => {
     const itemProgress = getItemProgress(itemId);
     const nextReviews = getItemNextReviews(itemId);
     return isDueForReview(itemProgress, nextReviews, completedFieldName);

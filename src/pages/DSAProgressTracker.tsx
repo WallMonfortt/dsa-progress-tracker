@@ -24,11 +24,11 @@ const DSAProgressTracker = () => {
     isProblemDue 
   } = useProblems();
 
-  const [filterCategory, setFilterCategory] = useState("Todos");
-  const [filterDifficulty, setFilterDifficulty] = useState("Todos");
-  const [showOnlyDueToday, setShowOnlyDueToday] = useState(false);
-  const [showExplanation, setShowExplanation] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [filterCategory, setFilterCategory] = useState<string>("Todos");
+  const [filterDifficulty, setFilterDifficulty] = useState<string>("Todos");
+  const [showOnlyDueToday, setShowOnlyDueToday] = useState<boolean>(false);
+  const [showExplanation, setShowExplanation] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 transition-colors dark:bg-gray-600">
@@ -138,3 +138,4 @@ const DSAProgressTracker = () => {
 };
 
 export default DSAProgressTracker;
+

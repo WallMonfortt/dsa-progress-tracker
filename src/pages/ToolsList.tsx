@@ -1,7 +1,20 @@
 import { Link } from 'react-router-dom';
-import { Code, LayoutDashboard, BookOpen, BarChart2 } from 'lucide-react';
+import { Code, LayoutDashboard, BookOpen, BarChart2, ReactNode } from 'lucide-react';
 
-const tools = [
+interface Tool {
+  id: string;
+  title: string;
+  description: string;
+  icon: ReactNode;
+  path: string;
+  comingSoon: boolean;
+}
+
+interface ToolCardProps {
+  tool: Tool;
+}
+
+const tools: Tool[] = [
   {
     id: 'dsa-progress',
     title: 'DSA Monitor',
@@ -36,7 +49,7 @@ const tools = [
   }
 ];
 
-const ToolCard = ({ tool }) => {
+const ToolCard = ({ tool }: ToolCardProps) => {
   const CardContent = () => (
     <div className={`p-6 rounded-lg border dark:border-gray-700 transition-all transform hover:scale-[1.02] ${
       tool.comingSoon 
@@ -118,3 +131,4 @@ const ToolsList = () => {
 };
 
 export default ToolsList;
+

@@ -1,0 +1,145 @@
+import { useState } from "react";
+import { Check, Code2, Copy } from "lucide-react";
+import { patterns } from "../data";
+import type { Pattern } from "../types";
+
+interface Language {
+  id: string;
+  name: string;
+  color: string;
+}
+
+const Patterns = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("python");
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  const languages: Language[] = [
+    { id: "python", name: "Python", color: "bg-blue-500" },
+    { id: "javascript", name: "JavaScript", color: "bg-yellow-500" },
+    { id: "java", name: "Java", color: "bg-red-500" },
+    { id: "go", name: "Go", color: "bg-cyan-500" },
+  ];
+
+  const copyToClipboard = (text: string, index: number) => {
+    navigator.clipboard.writeText(text);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
+              Hojas de Referencia de Patrones de Código
+            </h1>
+            <Code2 size={36} className="text-blue-600 ml-2" />
+          </div>
+          <p className="text-gray-600 text-lg dark:text-gray-400">
+            Domina los patrones de codificación en múltiples lenguajes
+          </p>
+        </div>
+
+        {/* Language Selector */}
+        <div className="bg-white rounded-lg shadow-md p-4 mb-8 sticky top-4 z-10 dark:bg-gray-600 dark:border-gray-700">
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <span className="text-gray-700 dark:text-gray-200 font-medium">Selecciona el lenguaje:</span>
+            {languages.map((lang) => (
+              <button
+                key={lang.id}
+                onClick={() => setSelectedLanguage(lang.id)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  selectedLanguage === lang.id
+                    ? `${lang.color} text-white shadow-lg scale-105`
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }`}
+              >
+                {lang.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Patterns */}
+        <div className="space-y-6">
+          {(patterns as Pattern[]).map((pattern, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+            >
+              <div className="bg-gradient-to-r from-indigo-500 to-blue-500 py-3 px-4 dark:bg-gradient-to-r dark:from-indigo-600 dark:to-blue-600">
+                <h2 className="text-lg font-bold text-white mb-1">
+                  {pattern.title}
+                </h2>
+                <p className="text-blue-50">{pattern.description}</p>
+              </div>
+
+              <div className="p-6 dark:bg-gray-600 dark:border-gray-700">
+                {/* Code Block */}
+                <div className="relative mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase">
+                      {languages.find((l) => l.id === selectedLanguage)?.name}{" "}
+                      Plantilla
+                    </span>
+                    <button
+                      onClick={() =>
+                        copyToClipboard(pattern.templates[selectedLanguage], idx)
+                      }
+                      className="flex items-center gap-2 px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-gray-200 rounded transition"
+                    >
+                      {copiedIndex === idx ? (
+                        <>
+                          <Check size={16} className="text-green-600" />
+                          <span className="text-green-600">Copiado!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={16} />
+                          <span>Copiar</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  <pre className="bg-gray-800 text-gray-100 rounded-lg p-4 overflow-x-auto border-2 border-gray-700">
+                    <code className="text-sm font-mono whitespace-pre">
+                      {pattern.templates[selectedLanguage]}
+                    </code>
+                  </pre>
+                </div>
+
+                {/* Common Problems */}
+                <div className="bg-blue-50 dark:bg-gray-800 dark:border-gray-700 rounded-lg p-4">
+                  <span className="font-semibold text-blue-900 dark:text-blue-400 text-sm">
+                    Problemas Comunes:
+                  </span>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {pattern.problems.map((problem, pIdx) => (
+                      <span
+                        key={pIdx}
+                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium dark:bg-blue-800 dark:text-blue-50"
+                      >
+                        {problem}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div className="mt-12 text-center text-gray-600 dark:text-gray-400">
+          <p className="text-sm border-2 border-blue-500 text-blue-500 rounded-lg p-2">
+            💡 Practica estos patrones regularmente para fortalecer tu intuición de resolución de problemas
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Patterns;
+

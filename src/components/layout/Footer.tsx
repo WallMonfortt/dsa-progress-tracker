@@ -1,4 +1,4 @@
-import { ChevronsLeftRightEllipsis, Github, Twitter, Linkedin, Mail, } from 'lucide-react';
+import { ChevronsLeftRightEllipsis, Github, Twitter, Linkedin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -68,3 +68,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

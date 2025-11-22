@@ -10,11 +10,13 @@ import {
   Circle,
   Brain,
   Rocket,
+  LucideIcon,
 } from "lucide-react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { interviewRoadmap, dsaMindmap } from "../data";
+import type { InterviewRoadmapSection, DSAMindmap } from "../types";
 
-const iconMap = {
+const iconMap: Record<string, LucideIcon> = {
   Briefcase,
   Code,
   MessageSquare,
@@ -27,20 +29,20 @@ const iconMap = {
 };
 
 const InterviewRoadmap = () => {
-  const [expandedSections, setExpandedSections] = useState({});
-  const [completedItems, setCompletedItems] = useLocalStorage("interview-progress", {});
-  const [activeTab, setActiveTab] = useState("interview");
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
+  const [completedItems, setCompletedItems] = useLocalStorage<Record<string, boolean>>("interview-progress", {});
+  const [activeTab, setActiveTab] = useState<"interview" | "dsa">("interview");
 
-  const toggleSection = (id) => {
+  const toggleSection = (id: string) => {
     setExpandedSections((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const toggleComplete = (id) => {
+  const toggleComplete = (id: string) => {
     setCompletedItems((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const getProgress = (sectionId) => {
-    const section = interviewRoadmap.find((s) => s.id === sectionId);
+  const getProgress = (sectionId: string): number => {
+    const section = (interviewRoadmap as InterviewRoadmapSection[]).find((s) => s.id === sectionId);
     if (!section) return 0;
     const completed = section.items.filter(
       (item) => completedItems[item.id]
@@ -91,7 +93,7 @@ const InterviewRoadmap = () => {
         {/* Interview Process Tab */}
         {activeTab === "interview" && (
           <div className="space-y-6">
-            {interviewRoadmap.map((section, idx) => {
+            {(interviewRoadmap as InterviewRoadmapSection[]).map((section, idx) => {
               const Icon = iconMap[section.icon];
               const progress = getProgress(section.id);
               const isExpanded = expandedSections[section.id];
@@ -109,7 +111,7 @@ const InterviewRoadmap = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <div className="bg-white dark:bg-gray-700 bg-opacity-20 p-2 rounded-lg">
-                          <Icon size={32} className="text-white" />
+                          {Icon && <Icon size={32} className="text-white" />}
                         </div>
                         <div>
                           <h2 className="text-lg font-bold text-white">
@@ -197,15 +199,15 @@ const InterviewRoadmap = () => {
             <div className="bg-white dark:bg-gray-700 rounded-lg shadow-lg py-4 px-6">
               <div className="flex items-center gap-3 mb-2">
                 <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-                  {dsaMindmap.title}
+                  {(dsaMindmap as DSAMindmap).title}
                 </h2>
                 <Brain size={32} className="text-blue-600 dark:text-blue-400" />
               </div>
-              <p className="text-gray-600 dark:text-gray-400">{dsaMindmap.description}</p>
+              <p className="text-gray-600 dark:text-gray-400">{(dsaMindmap as DSAMindmap).description}</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {dsaMindmap.sections.map((section) => (
+              {(dsaMindmap as DSAMindmap).sections.map((section) => (
                 <div
                   key={section.id}
                   className="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden"
@@ -260,3 +262,4 @@ const InterviewRoadmap = () => {
 };
 
 export default InterviewRoadmap;
+

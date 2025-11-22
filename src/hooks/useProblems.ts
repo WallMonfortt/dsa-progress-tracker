@@ -1,13 +1,16 @@
 import { useMemo } from "react";
 import useLocalStorage from "./useLocalStorage";
 import useProgress from "./useProgress";
-import problems from "../data/problems.json";
+import problemsData from "../data/problems.json";
+import type { Problem } from "../types";
 
 /**
  * Hook for managing DSA problems tracking
  * Uses the base useProgress hook for spaced repetition logic
  */
 const useProblems = () => {
+    const problems = problemsData as Problem[];
+    
     const {
         progress,
         setProgress,
@@ -21,7 +24,7 @@ const useProblems = () => {
         numReviews: 5,
     });
 
-    const [customProblems, setCustomProblems] = useLocalStorage("custom-problems", []);
+    const [customProblems, setCustomProblems] = useLocalStorage<Problem[]>("custom-problems", []);
 
     const allProblems = useMemo(() => [...problems, ...customProblems], [customProblems]);
 
@@ -33,33 +36,34 @@ const useProblems = () => {
         ])).filter(Boolean),
     ], [customProblems]);
 
-    const difficulties = ["Todos", "Fácil", "Medio", "Difícil"];
+    const difficulties = ["Todos", "Fácil", "Medio", "Difícil"] as const;
 
     // Wrapper to handle both completion and review toggles
-    const toggleComplete = (problemId, reviewIndex = null) => {
+    const toggleComplete = (problemId: string | number, reviewIndex: number | null = null) => {
+        const id = String(problemId);
         if (reviewIndex === null) {
-            baseToggleComplete(problemId);
+            baseToggleComplete(id);
         } else {
-            toggleReview(problemId, reviewIndex);
+            toggleReview(id, reviewIndex);
         }
     };
 
     const stats = useMemo(() => ({
         total: allProblems.length,
-        solved: allProblems.filter(p => isProblemSolved(p.id)).length,
+        solved: allProblems.filter(p => isProblemSolved(String(p.id))).length,
         easy: allProblems.filter(
-            (p) => p.difficulty === "Easy" && isProblemSolved(p.id)
+            (p) => p.difficulty === "Easy" && isProblemSolved(String(p.id))
         ).length,
         medium: allProblems.filter(
-            (p) => p.difficulty === "Medium" && isProblemSolved(p.id)
+            (p) => p.difficulty === "Medium" && isProblemSolved(String(p.id))
         ).length,
         hard: allProblems.filter(
-            (p) => p.difficulty === "Hard" && isProblemSolved(p.id)
+            (p) => p.difficulty === "Hard" && isProblemSolved(String(p.id))
         ).length,
     }), [allProblems, isProblemSolved]);
 
-    const isProblemDue = (problem) => {
-        return isProblemDueBase(problem.id);
+    const isProblemDue = (problem: Problem) => {
+        return isProblemDueBase(String(problem.id));
     };
 
     const getDueProblems = () => {
@@ -75,7 +79,7 @@ const useProblems = () => {
         toggleComplete,
         categories,
         difficulties,
-        isProblemSolved,
+        isProblemSolved: (id: string | number) => isProblemSolved(String(id)),
         isProblemDue,
         stats,
         getDueProblems,
@@ -84,3 +88,4 @@ const useProblems = () => {
 };
 
 export default useProblems;
+
