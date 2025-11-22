@@ -103,6 +103,11 @@ const TopicTracker = ({ topicId, topicData }) => {
           ) : (
             allSubtopics.map((subtopic) => {
               const subtopicId = subtopic.id || subtopic.title;
+              const allResources = [
+                ...(subtopic.resources || []),
+                ...(customResources.find(r => r.subtopicId === subtopicId)?.resources || []),
+              ];
+              
               return (
                 <TopicCard
                   key={subtopicId}
@@ -114,6 +119,7 @@ const TopicTracker = ({ topicId, topicData }) => {
                   onToggleResourceComplete={toggleResourceComplete}
                   onAddResource={addResource}
                   isDue={isSubtopicDue(subtopicId)}
+                  allResources={allResources}
                 />
               );
             })
@@ -125,6 +131,3 @@ const TopicTracker = ({ topicId, topicData }) => {
 };
 
 export default TopicTracker;
-
-// TODO: Implement local storage for topic progress
-

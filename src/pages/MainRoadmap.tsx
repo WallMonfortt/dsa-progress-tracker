@@ -1,37 +1,103 @@
 import { topics } from "../data";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { RoadmapTopicCard } from "../components/roadmap";
 import type { Topic } from "../types";
+import type { ProgressItem } from "../hooks/useSpacedRepetition";
+
+
+const calculateTopicProgress = (topic: Topic): number => {
+  const topicId = (topic.url || '').replace('/', '') || topic.title.toLowerCase().replace(/\s+/g, '-');
+  const progressKey = `topic-progress-${topicId}`;
+  const storedProgress = JSON.parse(localStorage.getItem(progressKey) || '{}') as Record<string, ProgressItem>;
+  
+  const totalSubtopics = topic.subtopics?.length || 0;
+  
+  if (totalSubtopics === 0) {
+    return 0;
+  }
+  
+  const completedSubtopics = topic.subtopics?.filter((subtopic) => {
+    const subtopicId = subtopic.id || subtopic.title;
+    const subtopicProgress = storedProgress[subtopicId];
+    return subtopicProgress?.completed === true;
+  }).length || 0;
+  
+  const percentage = Math.round((completedSubtopics / totalSubtopics) * 100);
+  return percentage;
+};
 
 const MainRoadmap = () => {
-  const [progress, setProgress] = useState<Record<string, number>>({});
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const progress = useMemo(() => {
+    const newProgress: Record<string, number> = {};
+    
+    (topics as Topic[]).forEach((topic) => {
+      newProgress[topic.title] = calculateTopicProgress(topic);
+    });
+    
+    return newProgress;
+  }, [refreshKey]);
+
+  const refreshProgress = useCallback(() => {
+    setRefreshKey(prev => prev + 1);
+  }, []);
 
   useEffect(() => {
-    const storedProgress = JSON.parse(localStorage.getItem('topicsProgress') || '{}') as Record<string, number>;
-    const initialProgress: Record<string, number> = {};
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key?.startsWith('topic-progress-')) {
+        refreshProgress();
+      }
+    };
 
-    (topics as Topic[]).forEach((topic, index) => {
-      initialProgress[topic.title] = storedProgress[topic.title] !== undefined
-        ? storedProgress[topic.title]
-        : index === 0 ? 0 : -1;
-    });
+    window.addEventListener('storage', handleStorageChange);
 
-    setProgress(initialProgress);
-  }, []);
+    const handleCustomStorageChange = () => {
+      refreshProgress();
+    };
+    window.addEventListener('topicProgressChanged', handleCustomStorageChange);
+
+    const handleFocus = () => {
+      refreshProgress();
+    };
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('topicProgressChanged', handleCustomStorageChange);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [refreshProgress]);
 
   useEffect(() => {
     localStorage.setItem('topicsProgress', JSON.stringify(progress));
   }, [progress]);
 
+  useEffect(() => { 
+    const originalSetItem = localStorage.setItem.bind(localStorage);
+    
+    localStorage.setItem = function(key: string, value: string) {
+      originalSetItem(key, value);
+      if (key.startsWith('topic-progress-')) {
+        window.dispatchEvent(new Event('topicProgressChanged'));
+      }
+    };
+
+    return () => {
+      localStorage.setItem = originalSetItem;
+    };
+  }, []);
+
   const isUnlocked = (index: number): boolean => {
     if (index === 0) return true;
     const prevTopic = (topics as Topic[])[index - 1];
-    return progress[prevTopic?.title] === 100;
+    if (!prevTopic) return false;
+    return progress[prevTopic.title] === 100;
   };
 
   const renderTopicCard = (topic: Topic, index: number) => {
     const unlocked = isUnlocked(index);
-    const currentProgress = progress[topic.title] ?? 100;
+    const currentProgress = progress[topic.title] ?? 0;
 
     return (
       <RoadmapTopicCard
@@ -93,4 +159,3 @@ const MainRoadmap = () => {
 };
 
 export default MainRoadmap;
-
