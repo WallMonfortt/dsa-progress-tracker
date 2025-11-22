@@ -1,16 +1,16 @@
-import { Code, BookOpen, Cpu, Database, Cloud, Server, GitBranch, Terminal, Globe, Zap, CheckCircle, ChevronRight } from "lucide-react";
 import { topics } from "../data";
 import { useState, useEffect } from "react";
 import { RoadmapTopicCard } from "../components/roadmap";
+import type { Topic } from "../types";
 
 const MainRoadmap = () => {
-  const [progress, setProgress] = useState({});
+  const [progress, setProgress] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    const storedProgress = JSON.parse(localStorage.getItem('topicsProgress')) || {};
-    const initialProgress = {};
+    const storedProgress = JSON.parse(localStorage.getItem('topicsProgress') || '{}') as Record<string, number>;
+    const initialProgress: Record<string, number> = {};
 
-    topics.forEach((topic, index) => {
+    (topics as Topic[]).forEach((topic, index) => {
       initialProgress[topic.title] = storedProgress[topic.title] !== undefined
         ? storedProgress[topic.title]
         : index === 0 ? 0 : -1;
@@ -23,15 +23,15 @@ const MainRoadmap = () => {
     localStorage.setItem('topicsProgress', JSON.stringify(progress));
   }, [progress]);
 
-  const isUnlocked = (index) => {
+  const isUnlocked = (index: number): boolean => {
     if (index === 0) return true;
-    const prevTopic = topics[index - 1];
+    const prevTopic = (topics as Topic[])[index - 1];
     return progress[prevTopic?.title] === 100;
   };
 
-  const renderTopicCard = (topic, index) => {
+  const renderTopicCard = (topic: Topic, index: number) => {
     const unlocked = isUnlocked(index);
-    const currentProgress = progress[topic.title] || 100;
+    const currentProgress = progress[topic.title] ?? 100;
 
     return (
       <RoadmapTopicCard
@@ -60,12 +60,12 @@ const MainRoadmap = () => {
 
         <div className="mb-16">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-            <BookOpen className="mr-2" />
+            <span className="mr-2">📚</span>
             Temas
           </h2>
           <div className="relative">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              {topics.map((topic, index) => renderTopicCard(topic, index))}
+              {(topics as Topic[]).map((topic, index) => renderTopicCard(topic, index))}
             </div>
           </div>
         </div>
@@ -93,3 +93,4 @@ const MainRoadmap = () => {
 };
 
 export default MainRoadmap;
+

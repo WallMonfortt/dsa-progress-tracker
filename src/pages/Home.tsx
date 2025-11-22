@@ -1,28 +1,48 @@
 import { Link } from 'react-router-dom';
 import { StartNowBtn } from '../components/ui';
 import { Code, BookOpen, BarChart2, Target, Clock, CheckCircle } from 'lucide-react';
+import type { ReactNode } from 'react';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Feature {
+  icon: ReactNode;
+  title: string;
+  description: string;
+}
+
+interface RoadmapPath {
+  title: string;
+  href: string;
+  description: string;
+  color: string;
+  icon: ReactNode;
+}
 
 const Home = () => {
-  const stats = [
-  { 
-    value: '30 min/día', 
-    label: 'De práctica constante' 
-  },
-  { 
-    value: '100%', 
-    label: 'Enfoque práctico' 
-  },
-  { 
-    value: '3 meses', 
-    label: 'Para dominar cada concepto' 
-  },
-  { 
-    value: '100%', 
-    label: 'Gratuito' 
-  }
-];
+  const stats: Stat[] = [
+    { 
+      value: '30 min/día', 
+      label: 'De práctica constante' 
+    },
+    { 
+      value: '100%', 
+      label: 'Enfoque práctico' 
+    },
+    { 
+      value: '3 meses', 
+      label: 'Para dominar cada concepto' 
+    },
+    { 
+      value: '100%', 
+      label: 'Gratuito' 
+    }
+  ];
 
-  const features = [
+  const features: Feature[] = [
     {
       icon: <Code className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
       title: 'Compendio de problemas',
@@ -40,7 +60,7 @@ const Home = () => {
     }
   ];
 
-  const roadmapPaths = [
+  const roadmapPaths: RoadmapPath[] = [
     {
       title: 'Fundamentos',
       href: '/fundamentos',
@@ -69,7 +89,7 @@ const Home = () => {
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-gray-800 dark:to-gray-900 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">Guia definitiva para convertirse en un <br /> <span className="text-blue-600 dark:text-blue-400">Ingeniero de Software</span></h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">Guia definitiva para convertirse en un <br /> <span className="text-gray-800 dark:text-blue-400">Ingeniero de Software</span></h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
             Un plan de estudio estructurado para ayudarte a alcanzar tus metas.
           </p>
@@ -158,3 +178,4 @@ const Home = () => {
 };
 
 export default Home;
+

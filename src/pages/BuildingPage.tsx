@@ -1,7 +1,12 @@
-// src/pages/BuildingPage.jsx
 import { Wrench, Code, Rocket, Zap, Clock, Mail } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+
+interface Feature {
+  icon: ReactNode;
+  title: string;
+  description: string;
+}
 
 const BuildingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,7 +19,7 @@ const BuildingPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const features = [
+  const features: Feature[] = [
     {
       icon: <Wrench className="w-8 h-8" />,
       title: 'En construcción',
@@ -104,3 +109,4 @@ const BuildingPage = () => {
 };
 
 export default BuildingPage;
+

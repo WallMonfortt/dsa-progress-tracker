@@ -1,9 +1,10 @@
 import TopicTracker from '../components/topics/TopicTracker';
 import { topics } from '../data';
+import type { Topic } from '../types';
 
 const Fundamentos = () => {
   // Find the Fundamentos topic from topics data
-  const fundamentosTopic = topics.find(topic => topic.title === "Fundamentos de Programación") || {
+  const fundamentosTopic = (topics as Topic[]).find(topic => topic.title === "Fundamentos de Programación") || {
     title: "Fundamentos de Programación",
     description: "Aprende los fundamentos de programación",
     subtopics: [
@@ -13,7 +14,7 @@ const Fundamentos = () => {
         resources: [
           {
             id: "what-is-programming",
-            type: "video",
+            type: "video" as const,
             title: "¿Qué es programar?",
             url: "#",
             duration: "10:45",
@@ -21,7 +22,7 @@ const Fundamentos = () => {
           },
           {
             id: "first-steps",
-            type: "article",
+            type: "article" as const,
             title: "Primeros pasos en programación",
             url: "#",
             estimatedReadTime: 8,
@@ -30,7 +31,7 @@ const Fundamentos = () => {
         ]
       }
     ]
-  };
+  } as Topic;
 
   return (
     <TopicTracker 
@@ -41,4 +42,4 @@ const Fundamentos = () => {
 };
 
 export default Fundamentos;
-  
+

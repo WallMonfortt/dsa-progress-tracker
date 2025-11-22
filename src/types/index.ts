@@ -49,3 +49,45 @@ export interface TopicProgress {
   resources?: Record<string, boolean>;
 }
 
+// Pattern types
+export interface Pattern {
+  title: string;
+  description: string;
+  templates: Record<string, string>;
+  problems: string[];
+}
+
+// Interview roadmap types
+export interface InterviewRoadmapItem {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export interface InterviewRoadmapSection {
+  id: string;
+  title: string;
+  icon: string;
+  color: string;
+  items: InterviewRoadmapItem[];
+}
+
+// DSA Mindmap types
+export interface DSAMindmapContentItem {
+  type: 'info' | 'question' | 'answer' | 'use' | 'note';
+  text: string;
+}
+
+export interface DSAMindmapSection {
+  id: string;
+  title: string;
+  color: string;
+  content: DSAMindmapContentItem[];
+}
+
+export interface DSAMindmap {
+  title: string;
+  description: string;
+  sections: DSAMindmapSection[];
+}
+
