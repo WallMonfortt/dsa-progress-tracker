@@ -1,4 +1,3 @@
-// Problem types
 export interface Problem {
   id: number;
   name: string;
@@ -8,7 +7,6 @@ export interface Problem {
   url: string;
 }
 
-// Topic types
 export interface Resource {
   id: string;
   type: 'video' | 'article' | 'exercise' | 'other';
@@ -27,13 +25,14 @@ export interface Subtopic {
 }
 
 export interface Topic {
-  id: string;
+  id?: string;
   title: string;
   description?: string;
+  icon?: string;
+  url?: string;
   subtopics: Subtopic[];
 }
 
-// Progress types
 export interface ProblemProgress {
   solved: boolean;
   solvedDate?: string;
@@ -49,7 +48,16 @@ export interface TopicProgress {
   resources?: Record<string, boolean>;
 }
 
-// Pattern types
+export interface ProgressItem {
+  completed?: boolean;
+  solved?: boolean;
+  completedDate?: string;
+  solvedDate?: string;
+  reviews: boolean[];
+  dates: Record<string, string>;
+  resources?: Record<string, boolean>;
+}
+
 export interface Pattern {
   title: string;
   description: string;
@@ -57,7 +65,6 @@ export interface Pattern {
   problems: string[];
 }
 
-// Interview roadmap types
 export interface InterviewRoadmapItem {
   id: string;
   title: string;
@@ -72,7 +79,6 @@ export interface InterviewRoadmapSection {
   items: InterviewRoadmapItem[];
 }
 
-// DSA Mindmap types
 export interface DSAMindmapContentItem {
   type: 'info' | 'question' | 'answer' | 'use' | 'note';
   text: string;

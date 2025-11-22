@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 import useLocalStorage from "./useLocalStorage";
 import useProgress from "./useProgress";
-import type { Resource, ProgressItem } from "../types";
+import type { Resource } from "../types";
+import type { ProgressItem } from "./useSpacedRepetition";
 
 interface CustomResourceGroup {
     subtopicId: string;
@@ -32,26 +33,70 @@ const useTopics = (topicId: string) => {
         []
     );
 
+    /**
+     * Check if all resources in a subtopic are completed
+     */
+    const areAllResourcesCompleted = useCallback((subtopicId: string, allResources: Resource[]): boolean => {
+        if (allResources.length === 0) {
+            return false;
+        }
+
+        const subtopicProgress = progress[subtopicId];
+        const resources = (subtopicProgress?.resources as unknown as Record<string, boolean>) || {};
+        
+        return allResources.every(resource => resources[resource.id] === true);
+    }, [progress]);
+
     // Alias for consistency with component naming
     const toggleTopicComplete = baseToggleComplete;
 
     /**
-     * Toggle resource completion status
+     * Toggle resource completion status and auto-complete subtopic if needed
      */
-    const toggleResourceComplete = useCallback((subtopicId: string, resourceId: string) => {
+    const toggleResourceComplete = useCallback((subtopicId: string, resourceId: string, allResources: Resource[]) => {
         setProgress((prev) => {
             const current = prev[subtopicId] || { resources: {} } as ProgressItem;
-            const resources = (current.resources as Record<string, boolean>) || {};
+            const resources = (current.resources as unknown as Record<string, boolean>) || {};
             const newResources = {
                 ...resources,
                 [resourceId]: !resources[resourceId],
             };
+            
+            const newResourceState = !resources[resourceId];
+            const allCompleted = allResources.every(resource => {
+                if (resource.id === resourceId) {
+                    return newResourceState;
+                }
+                return resources[resource.id] === true;
+            });
+
+            const isCurrentlyCompleted = current.completed === true;
+
+            // Auto-complete or uncomplete subtopic based on resources
+            let newCompleted = current.completed;
+            if (allResources.length > 0) {
+                if (allCompleted && !isCurrentlyCompleted) {
+                    newCompleted = true;
+                } else if (!allCompleted && isCurrentlyCompleted) {
+                    newCompleted = false;
+                }
+            }
+
+            const updatedItem: ProgressItem = {
+                ...current,
+                resources: newResources as unknown as Record<string, string>,
+                completed: newCompleted,
+                completedDate: (newCompleted && !isCurrentlyCompleted ? today : current.completedDate) as unknown as Record<string, string>,
+                reviews: newCompleted && !isCurrentlyCompleted ? Array(5).fill(false) : (current.reviews || []),
+                dates: newCompleted && !isCurrentlyCompleted ? { initial: today } : (current.dates || {}),
+            };
+
             return {
                 ...prev,
-                [subtopicId]: { ...current, resources: newResources },
+                [subtopicId]: updatedItem,
             };
         });
-    }, [setProgress]);
+    }, [setProgress, today]);
 
     /**
      * Add a custom resource to a subtopic
@@ -66,18 +111,22 @@ const useTopics = (topicId: string) => {
             const existingIndex = prev.findIndex((r) => r.subtopicId === subtopicId);
             if (existingIndex >= 0) {
                 const updated = [...prev];
-                updated[existingIndex] = {
-                    ...updated[existingIndex],
-                    resources: [...updated[existingIndex].resources, newResource],
-                };
+                const existingGroup = updated[existingIndex];
+                if (existingGroup) {
+                    updated[existingIndex] = {
+                        ...existingGroup,
+                        resources: [...existingGroup.resources, newResource],
+                    };
+                }
                 return updated;
             } else {
+                const newGroup: CustomResourceGroup = {
+                    subtopicId: subtopicId,
+                    resources: [newResource],
+                };
                 return [
                     ...prev,
-                    {
-                        subtopicId,
-                        resources: [newResource],
-                    },
+                    newGroup,
                 ];
             }
         });
@@ -102,8 +151,8 @@ const useTopics = (topicId: string) => {
         getSubtopicProgress,
         getNextReviews,
         isSubtopicDue,
+        areAllResourcesCompleted,
     };
 };
 
 export default useTopics;
-

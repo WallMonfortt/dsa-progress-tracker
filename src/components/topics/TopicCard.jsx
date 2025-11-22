@@ -35,7 +35,8 @@ const TopicCard = ({
   onToggleReview,
   onToggleResourceComplete,
   onAddResource,
-  isDue
+  isDue,
+  allResources = []
 }) => {
   const [isResourceModalOpen, setIsResourceModalOpen] = useState(false);
   const [excalidrawModal, setExcalidrawModal] = useState({ isOpen: false, path: null, title: '' });
@@ -51,10 +52,13 @@ const TopicCard = ({
     : [];
 
   const subtopicId = subtopic.id || subtopic.title;
-  const allResources = [
+  const allResourcesList = allResources.length > 0 ? allResources : [
     ...(subtopic.resources || []),
     ...(customResources.find(r => r.subtopicId === subtopicId)?.resources || []),
   ];
+
+  const hasResources = allResourcesList.length > 0;
+  const completedResourcesCount = allResourcesList.filter(r => subtopicProgress.resources?.[r.id]).length;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -77,8 +81,14 @@ const TopicCard = ({
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <button
-                onClick={() => onToggleComplete(subtopicId)}
-                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
+                onClick={() => !hasResources && onToggleComplete(subtopicId)}
+                className={`flex items-center gap-2 ${
+                  hasResources 
+                    ? "cursor-not-allowed opacity-50" 
+                    : "text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
+                }`}
+                disabled={hasResources}
+                title={hasResources ? "Se marcará automáticamente cuando todos los recursos estén completados" : "Marcar como completado"}
               >
                 {subtopicProgress.completed ? (
                   <CheckCircle2 className="text-green-600 dark:text-green-400" size={24} />
@@ -92,6 +102,11 @@ const TopicCard = ({
               {isDue && (
                 <span className="px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 text-xs rounded-full">
                   Pendiente
+                </span>
+              )}
+              {hasResources && (
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  ({completedResourcesCount}/{allResourcesList.length} recursos)
                 </span>
               )}
             </div>
@@ -155,7 +170,7 @@ const TopicCard = ({
         <div>
           <div className="flex items-center justify-between mb-3">
             <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-              Recursos ({allResources.length})
+              Recursos ({allResourcesList.length})
             </h4>
             <button
               onClick={() => setIsResourceModalOpen(true)}
@@ -166,13 +181,13 @@ const TopicCard = ({
             </button>
           </div>
 
-          {allResources.length === 0 ? (
+          {allResourcesList.length === 0 ? (
             <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-              No hay recursos agregados aún
+              No hay recursos agregados aún. Puedes marcarlo como completado manualmente.
             </p>
           ) : (
             <div className="space-y-2">
-              {allResources.map((resource) => {
+              {allResourcesList.map((resource) => {
                 const isCompleted = subtopicProgress.resources?.[resource.id];
                 const ResourceIcon = getResourceIcon(resource.type);
 
@@ -186,7 +201,7 @@ const TopicCard = ({
                     }`}
                   >
                     <button
-                      onClick={() => onToggleResourceComplete(subtopicId, resource.id)}
+                      onClick={() => onToggleResourceComplete(subtopicId, resource.id, allResourcesList)}
                       className="flex-shrink-0"
                     >
                       {isCompleted ? (
@@ -206,6 +221,15 @@ const TopicCard = ({
                             ? "text-green-700 dark:text-green-400 line-through"
                             : "text-blue-600 dark:text-blue-400"
                         }`}
+                        onClick={(e) => {
+                          // Si el URL es "#" o está vacío, prevenir la navegación
+                          if (!resource.url || resource.url === '#' || resource.url.trim() === '') {
+                            e.preventDefault();
+                            return;
+                          }
+                          // Permitir que el enlace funcione normalmente
+                          e.stopPropagation();
+                        }}
                       >
                         {resource.title}
                       </a>
@@ -237,7 +261,16 @@ const TopicCard = ({
                           <Image size={14} className="text-blue-600 dark:text-blue-400" />
                         </button>
                       )}
-                      <ExternalLink size={12} />
+                      <a
+                        href={resource.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                        title="Abrir en nueva pestaña"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink size={12} />
+                      </a>
                     </div>
                   </div>
                 );
@@ -268,4 +301,3 @@ const TopicCard = ({
 };
 
 export default TopicCard;
-
