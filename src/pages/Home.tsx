@@ -104,7 +104,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
-              <div key={index} className="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+              <div key={index} className="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl flex flex-col items-center justify-center">
                 <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stat.value}</div>
                 <div className="text-gray-600 dark:text-gray-300">{stat.label}</div>
               </div>
