@@ -30,7 +30,7 @@ function getEmbedUrl(platform: VideoPlatform, videoId: string, autoplay: boolean
  * Parsea una URL de video y devuelve la plataforma, el ID y la URL de embed.
  * Soporta: YouTube, Vimeo, Dailymotion.
  */
-export function parseVideoUrl(url: string, autoplay = true): ParsedVideo | null {
+export function parseVideoUrl(url: string, autoplay = false): ParsedVideo | null {
   if (!url || typeof url !== 'string') return null;
   const trimmed = url.trim();
 

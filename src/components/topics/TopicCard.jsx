@@ -15,8 +15,9 @@ import {
   Image
 } from 'lucide-react';
 import { isOverdue, isDueToday, calculateNextReviews } from '../../utils/dateUtils';
+import { parseVideoUrl } from '../../utils/videoUrl';
 import AddResourceModal from './AddResourceModal';
-import { ExcalidrawViewer } from '../ui';
+import { ExcalidrawViewer, VideoEmbed } from '../ui';
 
 const resourceIcons = {
   video: Video,
@@ -180,6 +181,26 @@ const TopicCard = ({
               Agregar
             </button>
           </div>
+
+          {(() => {
+            const firstVideoResource = allResourcesList.find(
+              (r) => r.type === 'video' && r.url && parseVideoUrl(r.url)
+            );
+            if (firstVideoResource) {
+              return (
+                <div className="mb-4">
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    {firstVideoResource.title}
+                  </p>
+                  <VideoEmbed
+                    url={firstVideoResource.url}
+                    title={firstVideoResource.title}
+                  />
+                </div>
+              );
+            }
+            return null;
+          })()}
 
           {allResourcesList.length === 0 ? (
             <p className="text-sm text-gray-500 dark:text-gray-400 italic">
