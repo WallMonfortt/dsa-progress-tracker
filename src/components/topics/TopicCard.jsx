@@ -3,6 +3,7 @@ import {
   CheckCircle2, 
   Circle, 
   Calendar, 
+  ChevronDown,
   ExternalLink, 
   Plus,
   Clock,
@@ -41,6 +42,7 @@ const TopicCard = ({
 }) => {
   const [isResourceModalOpen, setIsResourceModalOpen] = useState(false);
   const [excalidrawModal, setExcalidrawModal] = useState({ isOpen: false, path: null, title: '' });
+  const [expandedVideoId, setExpandedVideoId] = useState(null);
   const subtopicProgress = progress || {
     completed: false,
     reviews: Array(5).fill(false),
@@ -182,26 +184,6 @@ const TopicCard = ({
             </button>
           </div>
 
-          {(() => {
-            const firstVideoResource = allResourcesList.find(
-              (r) => r.type === 'video' && r.url && parseVideoUrl(r.url)
-            );
-            if (firstVideoResource) {
-              return (
-                <div className="mb-4">
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    {firstVideoResource.title}
-                  </p>
-                  <VideoEmbed
-                    url={firstVideoResource.url}
-                    title={firstVideoResource.title}
-                  />
-                </div>
-              );
-            }
-            return null;
-          })()}
-
           {allResourcesList.length === 0 ? (
             <p className="text-sm text-gray-500 dark:text-gray-400 italic">
               No hay recursos agregados aún. Puedes marcarlo como completado manualmente.
@@ -211,88 +193,123 @@ const TopicCard = ({
               {allResourcesList.map((resource) => {
                 const isCompleted = subtopicProgress.resources?.[resource.id];
                 const ResourceIcon = getResourceIcon(resource.type);
+                const isEmbeddableVideo = resource.type === 'video' && resource.url && parseVideoUrl(resource.url);
+                const isVideoExpanded = expandedVideoId === resource.id;
 
                 return (
                   <div
                     key={resource.id}
-                    className={`flex items-center gap-3 p-2 rounded border ${
+                    className={`rounded border overflow-hidden ${
                       isCompleted
                         ? "bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800"
                         : "bg-gray-50 border-gray-200 dark:bg-gray-700 dark:border-gray-600"
                     }`}
                   >
-                    <button
-                      onClick={() => onToggleResourceComplete(subtopicId, resource.id, allResourcesList)}
-                      className="flex-shrink-0"
-                    >
-                      {isCompleted ? (
-                        <CheckCircle2 className="text-green-600 dark:text-green-400" size={18} />
-                      ) : (
-                        <Circle className="text-gray-400" size={18} />
-                      )}
-                    </button>
-                    <div className="flex items-center gap-2 flex-1 min-w-0">
-                      {ResourceIcon}
-                      <a
-                        href={resource.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex-1 text-sm truncate hover:underline ${
-                          isCompleted
-                            ? "text-green-700 dark:text-green-400 line-through"
-                            : "text-blue-600 dark:text-blue-400"
-                        }`}
-                        onClick={(e) => {
-                          // Si el URL es "#" o está vacío, prevenir la navegación
-                          if (!resource.url || resource.url === '#' || resource.url.trim() === '') {
-                            e.preventDefault();
-                            return;
-                          }
-                          // Permitir que el enlace funcione normalmente
-                          e.stopPropagation();
-                        }}
+                    <div className="flex items-center gap-3 p-2">
+                      <button
+                        onClick={() => onToggleResourceComplete(subtopicId, resource.id, allResourcesList)}
+                        className="flex-shrink-0"
                       >
-                        {resource.title}
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                      {resource.duration && (
-                        <span className="flex items-center gap-1">
-                          <Clock size={12} />
-                          {resource.duration}
-                        </span>
-                      )}
-                      {resource.estimatedReadTime && (
-                        <span className="flex items-center gap-1">
-                          <BookOpen size={12} />
-                          {resource.estimatedReadTime} min
-                        </span>
-                      )}
-                      {resource.excalidrawPath && (
-                        <button
-                          onClick={() => setExcalidrawModal({
-                            isOpen: true,
-                            path: resource.excalidrawPath,
-                            title: resource.title
-                          })}
-                          className="p-1 hover:bg-blue-100 dark:hover:bg-blue-900 rounded transition-colors"
-                          title="Ver diagrama Excalidraw"
-                          aria-label="Ver diagrama Excalidraw"
+                        {isCompleted ? (
+                          <CheckCircle2 className="text-green-600 dark:text-green-400" size={18} />
+                        ) : (
+                          <Circle className="text-gray-400" size={18} />
+                        )}
+                      </button>
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        {ResourceIcon}
+                        {isEmbeddableVideo ? (
+                          <button
+                            type="button"
+                            onClick={() => setExpandedVideoId((id) => (id === resource.id ? null : resource.id))}
+                            className={`flex-1 text-left text-sm truncate hover:underline ${
+                              isCompleted
+                                ? "text-green-700 dark:text-green-400 line-through"
+                                : "text-blue-600 dark:text-blue-400"
+                            }`}
+                          >
+                            {resource.title}
+                          </button>
+                        ) : (
+                          <a
+                            href={resource.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex-1 text-sm truncate hover:underline ${
+                              isCompleted
+                                ? "text-green-700 dark:text-green-400 line-through"
+                                : "text-blue-600 dark:text-blue-400"
+                            }`}
+                            onClick={(e) => {
+                              if (!resource.url || resource.url === '#' || resource.url.trim() === '') {
+                                e.preventDefault();
+                              } else {
+                                e.stopPropagation();
+                              }
+                            }}
+                          >
+                            {resource.title}
+                          </a>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                        {resource.duration && (
+                          <span className="flex items-center gap-1">
+                            <Clock size={12} />
+                            {resource.duration}
+                          </span>
+                        )}
+                        {resource.estimatedReadTime && (
+                          <span className="flex items-center gap-1">
+                            <BookOpen size={12} />
+                            {resource.estimatedReadTime} min
+                          </span>
+                        )}
+                        {resource.excalidrawPath && (
+                          <button
+                            onClick={() => setExcalidrawModal({
+                              isOpen: true,
+                              path: resource.excalidrawPath,
+                              title: resource.title
+                            })}
+                            className="p-1 hover:bg-blue-100 dark:hover:bg-blue-900 rounded transition-colors"
+                            title="Ver diagrama Excalidraw"
+                            aria-label="Ver diagrama Excalidraw"
+                          >
+                            <Image size={14} className="text-blue-600 dark:text-blue-400" />
+                          </button>
+                        )}
+                        <a
+                          href={resource.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                          title="Abrir en nueva pestaña"
+                          onClick={(e) => e.stopPropagation()}
                         >
-                          <Image size={14} className="text-blue-600 dark:text-blue-400" />
-                        </button>
-                      )}
-                      <a
-                        href={resource.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                        title="Abrir en nueva pestaña"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink size={12} />
-                      </a>
+                          <ExternalLink size={12} />
+                        </a>
+                        {isEmbeddableVideo && (
+                          <button
+                            type="button"
+                            onClick={() => setExpandedVideoId((id) => (id === resource.id ? null : resource.id))}
+                            className="p-1 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                            title={isVideoExpanded ? "Ocultar reproductor" : "Ver reproductor"}
+                            aria-expanded={isVideoExpanded}
+                          >
+                            <ChevronDown
+                              size={16}
+                              className={`transition-transform duration-200 ${isVideoExpanded ? 'rotate-180' : ''}`}
+                            />
+                          </button>
+                        )}
+                      </div>
                     </div>
+                    {isEmbeddableVideo && isVideoExpanded && (
+                      <div className="border-t border-gray-200 dark:border-gray-600 p-2 bg-white dark:bg-gray-800">
+                        <VideoEmbed url={resource.url} title={resource.title} />
+                      </div>
+                    )}
                   </div>
                 );
               })}
