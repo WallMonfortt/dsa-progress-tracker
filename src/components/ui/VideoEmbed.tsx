@@ -4,7 +4,7 @@ import { ExternalLink } from 'lucide-react';
 interface VideoEmbedProps {
   /** URL del video (YouTube, Vimeo o Dailymotion) */
   url: string;
-  /** Reproducir automáticamente al cargar (por defecto: true) */
+  /** Reproducir automáticamente al cargar (por defecto: false) */
   autoplay?: boolean;
   /** Clases adicionales para el contenedor */
   className?: string;
@@ -18,7 +18,7 @@ interface VideoEmbedProps {
  */
 const VideoEmbed = ({
   url,
-  autoplay = true,
+  autoplay = false,
   className = '',
   title = 'Reproductor de video',
 }: VideoEmbedProps) => {
