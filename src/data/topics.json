@@ -26,12 +26,19 @@
             "estimatedReadTime": 8,
             "completed": false
           }
+        ],
+        "usefulLinks": [
+          { "title": "¿Qué es programación? (blog)", "url": "https://es.wikipedia.org/wiki/Programaci%C3%B3n", "type": "blog" },
+          { "title": "freeCodeCamp - Primeros pasos", "url": "https://www.freecodecamp.org/espanol/", "type": "course" }
         ]
       },
       {
         "id": "variables-data-types",
         "title": "Variables y Tipos de Datos",
-        "resources": []
+        "resources": [],
+        "usefulLinks": [
+          { "title": "30 Days Of JavaScript", "url": "https://github.com/Asabeneh/30-Days-Of-JavaScript", "type": "repo" }
+        ]
       },
       {
         "id": "control-structures",
