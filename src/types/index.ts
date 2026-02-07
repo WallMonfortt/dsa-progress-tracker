@@ -18,10 +18,19 @@ export interface Resource {
   addedDate?: string;
 }
 
+
+export interface UsefulLink {
+  title: string;
+  url: string;
+  type?: 'course' | 'academy' | 'repo' | 'blog' | 'other';
+}
+
 export interface Subtopic {
   id: string;
   title: string;
   resources: Resource[];
+  /** Lista opcional de recursos útiles para este subtema (blogs, cursos, repos, etc.) */
+  usefulLinks?: UsefulLink[];
 }
 
 export interface Topic {

@@ -5,19 +5,20 @@ import {
   Calendar, 
   ChevronDown,
   ExternalLink, 
-  Plus,
   Clock,
   BookOpen,
   Video,
   FileText,
   GraduationCap,
+  Building2,
+  Github,
+  Link2,
   Book,
   FileCode,
   Image
 } from 'lucide-react';
 import { isOverdue, isDueToday, calculateNextReviews } from '../../utils/dateUtils';
 import { parseVideoUrl } from '../../utils/videoUrl';
-import AddResourceModal from './AddResourceModal';
 import { ExcalidrawViewer, VideoEmbed } from '../ui';
 
 const resourceIcons = {
@@ -40,7 +41,6 @@ const TopicCard = ({
   isDue,
   allResources = []
 }) => {
-  const [isResourceModalOpen, setIsResourceModalOpen] = useState(false);
   const [excalidrawModal, setExcalidrawModal] = useState({ isOpen: false, path: null, title: '' });
   const [expandedVideoId, setExpandedVideoId] = useState(null);
   const subtopicProgress = progress || {
@@ -62,6 +62,26 @@ const TopicCard = ({
 
   const hasResources = allResourcesList.length > 0;
   const completedResourcesCount = allResourcesList.filter(r => subtopicProgress.resources?.[r.id]).length;
+  const usefulLinks = subtopic.usefulLinks || [];
+
+  const usefulLinkIcon = (type) => {
+    switch (type) {
+      case 'course': return GraduationCap;
+      case 'academy': return Building2;
+      case 'repo': return Github;
+      case 'blog': return BookOpen;
+      default: return Link2;
+    }
+  };
+  const usefulLinkLabel = (type) => {
+    switch (type) {
+      case 'course': return 'Curso';
+      case 'academy': return 'Academia';
+      case 'repo': return 'Repo';
+      case 'blog': return 'Blog';
+      default: return 'Enlace';
+    }
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -171,17 +191,10 @@ const TopicCard = ({
 
         {/* Resources Section */}
         <div>
-          <div className="flex items-center justify-between mb-3">
+          <div className="mb-3">
             <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
               Recursos ({allResourcesList.length})
             </h4>
-            <button
-              onClick={() => setIsResourceModalOpen(true)}
-              className="flex items-center gap-1 px-2 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-            >
-              <Plus size={14} />
-              Agregar
-            </button>
           </div>
 
           {allResourcesList.length === 0 ? (
@@ -316,17 +329,42 @@ const TopicCard = ({
             </div>
           )}
         </div>
-      </div>
 
-      <AddResourceModal
-        isOpen={isResourceModalOpen}
-        onClose={() => setIsResourceModalOpen(false)}
-        onAdd={(resource) => {
-          onAddResource(subtopicId, resource);
-          setIsResourceModalOpen(false);
-        }}
-        subtopicTitle={subtopic.title}
-      />
+        {/* Recursos y enlaces útiles (opcional por subtema) */}
+        {usefulLinks.length > 0 && (
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Recursos y enlaces útiles
+            </h4>
+            <ul className="space-y-1.5">
+              {usefulLinks.map((link, index) => {
+                const Icon = usefulLinkIcon(link.type);
+                const label = usefulLinkLabel(link.type);
+                return (
+                  <li key={index}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 p-2 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group text-sm"
+                    >
+                      <span className="flex items-center justify-center w-7 h-7 rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 shrink-0">
+                        <Icon size={14} />
+                      </span>
+                      <span className="flex-1 text-gray-800 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                        {link.title}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 shrink-0">
+                        {label}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+      </div>
 
       <ExcalidrawViewer
         isOpen={excalidrawModal.isOpen}
