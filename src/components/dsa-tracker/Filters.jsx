@@ -9,6 +9,8 @@ const Filters = ({
   setFilterDifficulty,
   showOnlyDueToday,
   setShowOnlyDueToday,
+  showUpcomingReviews,
+  setShowUpcomingReviews,
   searchQuery,
   setSearchQuery,
 }) => (
@@ -80,18 +82,33 @@ const Filters = ({
           ))}
         </select>
       </div>
-      <div className="flex items-center gap-2 md:mt-6">
-        <input
-          id="due-today-checkbox"
-          type="checkbox"
-          title="Mostrar Solo Pendientes Hoy"
-          checked={showOnlyDueToday}
-          onChange={() => setShowOnlyDueToday((prev) => !prev)}
-          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white dark:bg-gray-600 dark:text-white"
-        />
-        <label htmlFor="due-today-checkbox" className="text-sm font-medium text-gray-700 dark:text-white">
-          Mostrar problemas pendientes
-        </label>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 md:col-span-4 md:mt-2">
+        <div className="flex items-center gap-2">
+          <input
+            id="due-today-checkbox"
+            type="checkbox"
+            title="Mostrar Solo Pendientes Hoy"
+            checked={showOnlyDueToday}
+            onChange={() => setShowOnlyDueToday((prev) => !prev)}
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white dark:bg-gray-600 dark:text-white"
+          />
+          <label htmlFor="due-today-checkbox" className="text-sm font-medium text-gray-700 dark:text-white">
+            Mostrar problemas pendientes
+          </label>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            id="upcoming-reviews-checkbox"
+            type="checkbox"
+            title="Mostrar siguientes revisiones"
+            checked={showUpcomingReviews}
+            onChange={() => setShowUpcomingReviews((prev) => !prev)}
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white dark:bg-gray-600 dark:text-white"
+          />
+          <label htmlFor="upcoming-reviews-checkbox" className="text-sm font-medium text-gray-700 dark:text-white">
+            Mostrar siguientes revisiones
+          </label>
+        </div>
       </div>
     </div>
   </div>

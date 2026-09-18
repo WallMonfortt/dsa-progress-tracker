@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { AddProblemModal } from "./modals";
 import { ProblemRow } from "./table";
-import { isDueToday, isOverdue, calculateNextReviews } from "../../utils/dateUtils";
+import { isDueToday, isOverdue, isUpcoming, calculateNextReviews } from "../../utils/dateUtils";
 import { PaginationControls } from "./table";
 
 const ProblemTable = ({
@@ -12,6 +12,7 @@ const ProblemTable = ({
   filterCategory,
   filterDifficulty,
   showOnlyDueToday,
+  showUpcomingReviews = false,
   searchQuery = "",
   onProblemsUpdate,
 }) => {
@@ -91,17 +92,31 @@ const ProblemTable = ({
       (problem.name && problem.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (problem.id && problem.id.toString().toLowerCase().includes(searchQuery.toLowerCase()));
 
-    if (!showOnlyDueToday) return categoryMatch && difficultyMatch && searchMatch;
+    if (!showOnlyDueToday && !showUpcomingReviews) {
+      return categoryMatch && difficultyMatch && searchMatch;
+    }
 
     const prob = progress[problem.id];
     if (!prob || !prob.solved) return false;
 
     const nextReviews = calculateNextReviews(prob.solvedDate);
-    const filterIsDueToday = nextReviews.some(
+    const isPending = nextReviews.some(
       (date, idx) => (isDueToday(date) || isOverdue(date)) && !prob.reviews?.[idx]
     );
+    const hasUpcomingReview = nextReviews.some(
+      (date, idx) => isUpcoming(date) && !prob.reviews?.[idx]
+    );
 
-    return categoryMatch && difficultyMatch && filterIsDueToday;
+    let reviewMatch = false;
+    if (showOnlyDueToday && showUpcomingReviews) {
+      reviewMatch = isPending || hasUpcomingReview;
+    } else if (showOnlyDueToday) {
+      reviewMatch = isPending;
+    } else {
+      reviewMatch = hasUpcomingReview;
+    }
+
+    return categoryMatch && difficultyMatch && searchMatch && reviewMatch;
   });
 
   const totalPages = Math.ceil(filteredProblems.length / problemsPerPage);

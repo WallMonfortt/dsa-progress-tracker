@@ -27,6 +27,15 @@ export const isDueToday = (dateStr: string | null | undefined): boolean => {
   );
 };
 
+export const isUpcoming = (dateStr: string | null | undefined): boolean => {
+  if (!dateStr) return false;
+  const date = new Date(dateStr);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  date.setHours(0, 0, 0, 0);
+  return date > today;
+};
+
 export const calculateNextReviews = (
   solvedDate: string | null | undefined,
   intervals: number[] = [3, 5, 9, 17, 33, 65]

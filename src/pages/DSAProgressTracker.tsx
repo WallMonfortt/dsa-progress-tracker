@@ -27,6 +27,7 @@ const DSAProgressTracker = () => {
   const [filterCategory, setFilterCategory] = useState<string>("Todos");
   const [filterDifficulty, setFilterDifficulty] = useState<string>("Todos");
   const [showOnlyDueToday, setShowOnlyDueToday] = useState<boolean>(false);
+  const [showUpcomingReviews, setShowUpcomingReviews] = useState<boolean>(false);
   const [showExplanation, setShowExplanation] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -115,6 +116,8 @@ const DSAProgressTracker = () => {
           setFilterDifficulty={setFilterDifficulty}
           showOnlyDueToday={showOnlyDueToday}
           setShowOnlyDueToday={setShowOnlyDueToday}
+          showUpcomingReviews={showUpcomingReviews}
+          setShowUpcomingReviews={setShowUpcomingReviews}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />
@@ -129,6 +132,7 @@ const DSAProgressTracker = () => {
           filterCategory={filterCategory}
           filterDifficulty={filterDifficulty}
           showOnlyDueToday={showOnlyDueToday}
+          showUpcomingReviews={showUpcomingReviews}
           searchQuery={searchQuery}
           onProblemsUpdate={setCustomProblems}
         />
